@@ -47,6 +47,7 @@ def print_table(table, date):
 
 
 def table_chat(table, date):
+    date = '.'.join(date.split('-')[::-1])
     chat = 'Расписание на ' + date + '\n'
     for i in table:
         group = i['group'] if i['group'] else i['stream']
