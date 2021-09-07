@@ -28,7 +28,7 @@ def timetable(group, date):
         'lng': 1
     }).json()
     table_need = [
-        {j: i[j] for j in needs}
+        {j: i[j] for j in i.keys()}
         for i in response if i['date'] == date]
 
     return table_need
@@ -52,7 +52,7 @@ def table_chat(table, date):
     chat = 'Расписание на ' + date + '\n'
     for i in table:
         a = '-'*100 + '\n'
-        chat += a + i['discipline'] + '\n' + a + i['beginLesson'] + ' - ' + i['endLesson'] +\
+        chat += a + i['discipline'] + '|' + '\n' + a + i['beginLesson'] + ' - ' + i['endLesson'] +\
                 '\n' + i['lecturer'] + ' | ' + i['kindOfWork'] + '\n'
 
         if i['building'] == 'Виртуальное':
