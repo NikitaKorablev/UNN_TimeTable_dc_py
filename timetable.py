@@ -51,8 +51,9 @@ def print_table(table, date):
 def table_chat(table, date):
     chat = 'Расписание на ' + date + '\n'
     for i in table:
+        group = i['group'] if i['group'] else i['stream']
         a = '-'*100 + '\n'
-        chat += a + i['discipline'] + '|' + '\n' + a + i['beginLesson'] + ' - ' + i['endLesson'] +\
+        chat += a + i['discipline'] + ' | ' + group + '\n' + a + i['beginLesson'] + ' - ' + i['endLesson'] +\
                 '\n' + i['lecturer'] + ' | ' + i['kindOfWork'] + '\n'
 
         if i['building'] == 'Виртуальное':
