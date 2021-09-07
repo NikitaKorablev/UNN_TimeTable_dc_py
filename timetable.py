@@ -10,7 +10,7 @@ headers = {
     'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.105 YaBrowser/21.3.3.230 Yowser/2.5 Safari/537.36'}
 session = requests.session()
 session.headers.update(headers)
-auth = ('', '') #логин, пароль
+auth = ('', '')  # логин, пароль
 login = session.get('https://portal.unn.ru/stream/', auth=auth)
 
 needs = ['auditorium', 'beginLesson', 'endLesson', 'building', 'date', 'dayOfWeek', 'dayOfWeekString', 'discipline',
@@ -18,10 +18,8 @@ needs = ['auditorium', 'beginLesson', 'endLesson', 'building', 'date', 'dayOfWee
 
 
 def timetable(group, date):
-    date = date.split('.')
-    date = date[2] + '.' + date[1] + '.' + date[0]
     st, fin = st_fin(date)
-    url = 'https://portal.unn.ru/ruzapi/schedule/group/' + groups[group - 1]
+    url = 'https://portal.unn.ru/ruzapi/schedule/group/' + groups[group]
     response = session.get(url, params={
         'start': st,  # 'start': '2021.09.06',
         'finish': fin,  # 'finish': '2021.09.12',
@@ -52,8 +50,8 @@ def table_chat(table, date):
     chat = 'Расписание на ' + date + '\n'
     for i in table:
         group = i['group'] if i['group'] else i['stream']
-        a = '-'*100 + '\n'
-        chat += a + i['discipline'] + ' | ' + group + '\n' + a + i['beginLesson'] + ' - ' + i['endLesson'] +\
+        a = '-' * 100 + '\n'
+        chat += a + i['discipline'] + ' | ' + group + '\n' + a + i['beginLesson'] + ' - ' + i['endLesson'] + \
                 '\n' + i['lecturer'] + ' | ' + i['kindOfWork'] + '\n'
 
         if i['building'] == 'Виртуальное':
@@ -65,9 +63,7 @@ def table_chat(table, date):
 
 
 def st_fin(date):
-    date_s = date.split('.')
-    for i in range(len(date_s)):
-        date_s[i] = int(date_s[i]) if date_s[i][0] != '0' else int(date_s[i][-1])
+    date_s = list(map(int, date.split('-')))
     today = datetime.date(*date_s)
     for i in range(7):
         a = today + datetime.timedelta(days=-i)
@@ -85,34 +81,28 @@ if __name__ == '__main__':
     DATE = '12.09.2021'
     GROUP = 1
 
-    table = timetable(GROUP, DATE) #список словарей пар
-    print_table(table)
+    table = timetable(GROUP, DATE)  # список словарей пар
+    print_table(table, DATE)
 
 
 def time_client(client):
-
     @client.event
     async def on_ready():
         while True:
-            channels = ['868936978157162516']
-            print(channels)
-
-            DATE = '10.09.2021'
-            GROUP = 1
-            table = timetable(GROUP, DATE)
-
-            for text_channel in channels:
-                channel = client.get_channel(int(text_channel))
-                await channel.send(table_chat(table, DATE))
-
-            time.sleep(30)
-
-
+            # channels_test = [868936978157162516]
+            channels = [882231588832804877, 884135605150289920, 884135626855837757, 884135649614106685,
+                        884135682371637278]
+            DATE, TIME = str(datetime.datetime.now()).split()
+            if TIME.split(':')[0] == '22':
+                for i, j in enumerate(channels):
+                    GROUP = i
+                    CHANNEL = j
+                    table = timetable(GROUP, DATE)
+                    channel = client.get_channel(CHANNEL)
+                    await channel.send(table_chat(table, DATE))
+                    time.sleep(72000)
 
     #     for guild in self.client.guilds:
     #         for channel in guild.text_channels:
     #             self.text_channel_list.append(channel)
     #             print(self.text_channel_list)
-
-
-
