@@ -1,8 +1,8 @@
 import discord
 from discord.ext import commands
 
-import requests
 import datetime
+import requests
 import time
 
 groups = ['34883', '34884', '34885', '36374', '36436']
@@ -42,10 +42,11 @@ def print_table(table, date):
 def table_chat(table, date):
     date = '.'.join(date.split('-')[::-1])
     chat = 'Расписание на ' + date + '\n'
+    chat_array = [chat]
     for i in table:
         group = i['group'] if i['group'] else i['stream']
         a = '-' * 100 + '\n'
-        chat += a + i['discipline'] + ' | ' + group + '\n' + a + i['beginLesson'] + ' - ' + i['endLesson'] + \
+        chat = a + i['discipline'] + ' | ' + group + '\n' + a + i['beginLesson'] + ' - ' + i['endLesson'] + \
                 '\n' + i['lecturer'] + ' | ' + i['kindOfWork'] + '\n'
 
         if i['building'] == 'Виртуальное':
@@ -53,7 +54,9 @@ def table_chat(table, date):
         else:
             chat += i['auditorium'] + ' ' + i['building'] + '\n'
 
-    return chat
+        chat_array.append(chat)
+
+    return chat_array
 
 
 def st_fin(date):
@@ -79,22 +82,45 @@ if __name__ == '__main__':
     print_table(table, DATE)
 
 
+def time_posting(std_time):
+    hour, minutes = map(int, std_time.split(':'))
+
+    now_d = datetime.datetime.now()
+    next_day = now_d + datetime.timedelta(days=1)
+    # hours_next_day, minutes_next_day, _ = list(map(int, str(next_day).split()[1].split(':')))
+    next_day = list(map(int, str(next_day).split()[0].split('-')))
+    next_day = datetime.datetime(*next_day, hour, minutes, 0)
+
+    h, m, sec = [int(float(i)) for i in str(next_day - now_d).split(':')]
+
+    time_before_next_posting = int(sec + m*60 + h*3600)
+
+    return time_before_next_posting
+
+
 def time_client(client):
     @client.event
     async def on_ready():
         while True:
-            # channels_test = [868936978157162516]
-            channels = [882231588832804877, 884135605150289920, 884135626855837757, 884135649614106685,
-                        884135682371637278]
-            DATE, TIME = str(datetime.datetime.now()).split()
-            if TIME.split(':')[0] == '22':
-                for i, j in enumerate(channels):
-                    GROUP = i
-                    CHANNEL = j
-                    table = timetable(GROUP, DATE)
-                    channel = client.get_channel(CHANNEL)
-                    await channel.send(table_chat(table, DATE))
-                    time.sleep(72000)
+            channels = [868936978157162516]
+            # channels = [882231588832804877, 884135605150289920, 884135626855837757, 884135649614106685,
+            #             884135682371637278]
+            DATE, TIME = str(datetime.datetime.now() + datetime.timedelta(days=1)).split()
+            for i, j in enumerate(channels):
+                GROUP = i
+                CHANNEL = j
+                table = timetable(GROUP, DATE)
+                channel = client.get_channel(CHANNEL)
+
+                for message in table_chat(table, DATE):
+                    await channel.send(message)
+
+            tp = time_posting(std_time='20:0')
+
+            time.sleep(tp)
+
+
+
 
     #     for guild in self.client.guilds:
     #         for channel in guild.text_channels:
