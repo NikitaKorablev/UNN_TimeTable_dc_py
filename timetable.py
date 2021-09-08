@@ -1,6 +1,3 @@
-import discord
-from discord.ext import commands
-
 import datetime
 import requests
 import time
@@ -118,11 +115,3 @@ def time_client(client):
             tp = time_posting(std_time='20:0')
 
             time.sleep(tp)
-
-
-
-
-    #     for guild in self.client.guilds:
-    #         for channel in guild.text_channels:
-    #             self.text_channel_list.append(channel)
-    #             print(self.text_channel_list)
