@@ -6,28 +6,21 @@ import datetime
 import time
 
 groups = ['34883', '34884', '34885', '36374', '36436']
-headers = {
+HEADERS = {
     'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.105 YaBrowser/21.3.3.230 Yowser/2.5 Safari/537.36'}
-session = requests.session()
-session.headers.update(headers)
-auth = ('', '')  # логин, пароль
-login = session.get('https://portal.unn.ru/stream/', auth=auth)
-
-needs = ['auditorium', 'beginLesson', 'endLesson', 'building', 'date', 'dayOfWeek', 'dayOfWeekString', 'discipline',
-         'kindOfWork', 'lecturer']
 
 
 def timetable(group, date):
     st, fin = st_fin(date)
     url = 'https://portal.unn.ru/ruzapi/schedule/group/' + groups[group]
-    response = session.get(url, params={
+    response = requests.get(url, headers=HEADERS, params={
         'start': st,  # 'start': '2021.09.06',
         'finish': fin,  # 'finish': '2021.09.12',
         'lng': 1
     }).json()
     table_need = [
         {j: i[j] for j in i.keys()}
-        for i in response if i['date'] == date]
+        for i in response if i['date'] == date.replace('-', '.')]
 
     return table_need
 
