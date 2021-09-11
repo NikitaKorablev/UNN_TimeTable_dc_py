@@ -40,16 +40,18 @@ def table_chat(table, date):
     date = '.'.join(date.split('-')[::-1])
     chat = 'Расписание на ' + date + '\n'
     chat_array = [chat]
-    for i in table:
+    for j, i in enumerate(table):
         group = i['group'] if i['group'] else i['stream']
         a = '-' * 100 + '\n'
-        chat = a + i['discipline'] + ' | ' + group + '\n' + a + i['beginLesson'] + ' - ' + i['endLesson'] + \
-                '\n' + i['lecturer'] + ' | ' + i['kindOfWork'] + '\n'
+
+        chat = a + i['discipline'] + ' | ' + group + '\n' + a + i['beginLesson'] + ' - ' + i['endLesson'] + '\n'
 
         if i['building'] == 'Виртуальное':
-            chat += 'Ссылка:' + '\n'
+            chat += 'Ссылка: ' + str(j + 1) + '\n'
         else:
             chat += i['auditorium'] + ' ' + i['building'] + '\n'
+
+        chat += i['lecturer'] + ' | ' + i['kindOfWork'] + '\n'
 
         chat_array.append(chat)
 
@@ -69,16 +71,6 @@ def st_fin(date):
     return [st, fin]
 
 
-if __name__ == '__main__':
-    print(datetime.date.today())
-    print(datetime.datetime.now())
-    DATE = '12.09.2021'
-    GROUP = 1
-
-    table = timetable(GROUP, DATE)  # список словарей пар
-    print_table(table, DATE)
-
-
 def time_posting(std_time):
     hour, minutes = map(int, std_time.split(':'))
 
@@ -88,20 +80,26 @@ def time_posting(std_time):
     next_day = list(map(int, str(next_day).split()[0].split('-')))
     next_day = datetime.datetime(*next_day, hour, minutes, 0)
 
-    h, m, sec = [int(float(i)) for i in str(next_day - now_d).split(':')]
+    if ',' in str(next_day - now_d):
+        day, clock = str(next_day - now_d).split(',')
+        h, m, sec = [int(float(i)) for i in clock.split(':')]
+        day = int(day.split()[0])
+    else:
+        h, m, sec = [int(float(i)) for i in str(next_day - now_d).split(':')]
+        day = 0
 
-    time_before_next_posting = int(sec + m*60 + h*3600)
+    time_before_next_posting = int(sec + m*60 + h*3600 + day*24*3600)
+
+    print("days:", day, ";", "hours:", h, ";", "minutes:", m, ";", "seconds: ", sec)
+    print(time_before_next_posting, 'second')
 
     return time_before_next_posting
 
 
-def time_client(client):
+def time_client(client, channels):
     @client.event
     async def on_ready():
         while True:
-            channels = [868936978157162516]
-            # channels = [882231588832804877, 884135605150289920, 884135626855837757, 884135649614106685,
-            #             884135682371637278]
             DATE, TIME = str(datetime.datetime.now() + datetime.timedelta(days=1)).split()
             for i, j in enumerate(channels):
                 GROUP = i
