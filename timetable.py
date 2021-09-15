@@ -14,6 +14,7 @@ def timetable(group,date):
         'finish': date.replace('-', '.'),  # 'finish': '2021.09.12',
         'lng': 1
     }).json()
+    print(type(response[0]['dayOfWeek']))
     return response
 
 def group_id(group):
@@ -97,8 +98,8 @@ def time_client(client, channels):
                 table = timetable(GROUP, DATE)
                 channel = client.get_channel(CHANNEL)
 
-                for message in table_chat(table, DATE):
-                    await channel.send(message)
+                # for message in table_chat(table, DATE):
+                #     await channel.send(message)
 
             tp = time_posting(std_time='20:0')
 
