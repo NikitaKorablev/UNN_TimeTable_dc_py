@@ -46,9 +46,10 @@ def table_chat(table, date):
     chat_array = [chat]
     for j, i in enumerate(table):
         group = i['group'] if i['group'] else i['stream']
-        a = '-' * 100 + '\n'
+        a = '-' * 59 + '\n'
+        lesson = i['discipline']
 
-        chat = a + i['discipline'] + ' | ' + group + '\n' + a + i['beginLesson'] + ' - ' + i['endLesson'] + '\n'
+        chat = a + lesson + ' | ' + group + '\n' + a + i['beginLesson'] + ' - ' + i['endLesson'] + '\n'
 
         if i['building'] == 'Виртуальное':
             chat += 'Ссылка: ' + str(j + 1) + '\n'
@@ -88,6 +89,19 @@ def time_posting(std_time):
 
 
 def time_client(client, channels):
+    math_analysis_monday = ['https://zoom.us/j/92825618536?pwd=NkUrbWxiTmlNQkRKVjQ', '928 2561 8536', '559912']
+    math_analysis_thursday = ['https://zoom.us/j/98478027286?pwd=ZDRnZ1lvOWt0TDhGMGY', '984 7802 7286', '504739']
+    math_analysis = [math_analysis_monday, math_analysis_thursday]
+
+    base_programming = ['https://teams.microsoft.com/l/meetup-j...QwNWE1O',
+                        'https://teams.microsoft.com/l/meetup-j...RiMmNjM']
+    # base_programming[0] = 09:10
+    # base_programming[1] = 14:40
+
+    year, month, day = map(int, str(datetime.datetime.now()).split()[0].split('-'))
+    week_day = datetime.date(year + 1, month, day).weekday()
+    print(week_day)
+    
     @client.event
     async def on_ready():
         while True:
