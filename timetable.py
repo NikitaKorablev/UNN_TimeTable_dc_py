@@ -7,15 +7,17 @@ HEADERS = {
     'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.105 YaBrowser/21.3.3.230 Yowser/2.5 Safari/537.36'}
 
 
-def timetable(group,date):
+def timetable(group, date):
     url = 'https://portal.unn.ru/ruzapi/schedule/group/' + group_id(group)
-    response = requests.get(url,headers=HEADERS,  params={
+    response = requests.get(url, headers=HEADERS,  params={
         'start': date.replace('-', '.'),  # 'start': '2021.09.06',
         'finish': date.replace('-', '.'),  # 'finish': '2021.09.12',
         'lng': 1
     }).json()
-    print(type(response[0]['dayOfWeek']))
+    # print(response)
+    # print(response[0]['dayOfWeek'])
     return response
+
 
 def group_id(group):
     url = 'https://portal.unn.ru/ruzapi/search'
@@ -25,6 +27,7 @@ def group_id(group):
     })
     id = response.json()[0]['id']
     return id
+
 
 def print_table(table, date):
     print('Расписание на', date)
@@ -63,11 +66,11 @@ def table_chat(table, date):
     return chat_array
 
 
-def time_posting(std_time):
+def time_posting(std_time, ddd):
     hour, minutes = map(int, std_time.split(':'))
 
     now_d = datetime.datetime.now()
-    next_day = now_d + datetime.timedelta(days=1)
+    next_day = now_d + datetime.timedelta(days=ddd)
     # hours_next_day, minutes_next_day, _ = list(map(int, str(next_day).split()[1].split(':')))
     next_day = list(map(int, str(next_day).split()[0].split('-')))
     next_day = datetime.datetime(*next_day, hour, minutes, 0)
@@ -89,32 +92,55 @@ def time_posting(std_time):
 
 
 def time_client(client, channels):
-    math_analysis_monday = ['https://zoom.us/j/92825618536?pwd=NkUrbWxiTmlNQkRKVjQ', '928 2561 8536', '559912']
-    math_analysis_thursday = ['https://zoom.us/j/98478027286?pwd=ZDRnZ1lvOWt0TDhGMGY', '984 7802 7286', '504739']
-    math_analysis = [math_analysis_monday, math_analysis_thursday]
+    webs = {'monday': {
+                'math_analysis': {'link': 'https://zoom.us/j/92825618536?pwd=NkUrbWxiTmlNQkRKVjQ',
+                            'id': '928 2561 8536',
+                            'pass': '559912'}
+            },  'base_programming': {
+                    '09:10': {'link': 'https://teams.microsoft.com/l/meetup-j...QwNWE1O'},
+                    '14:40': {'link': 'https://teams.microsoft.com/l/meetup-j...RiMmNjM'}
+            },
 
-    base_programming = ['https://teams.microsoft.com/l/meetup-j...QwNWE1O',
-                        'https://teams.microsoft.com/l/meetup-j...RiMmNjM']
-    # base_programming[0] = 09:10
-    # base_programming[1] = 14:40
+            'thursday': {
+                'philosophy': {
+                    'lecture': {'href': ''},
+                    'practice': {'href': ''}
+                },
+                'math_analysis': {'href': 'https://zoom.us/j/98478027286?pwd=ZDRnZ1lvOWt0TDhGMGY',
+                              'id': '984 7802 7286',
+                              'pass': '504739'}
+            }}
+
+    algebra = {'href': '', 'id': '', 'pass': ''}
 
     year, month, day = map(int, str(datetime.datetime.now()).split()[0].split('-'))
     week_day = datetime.date(year + 1, month, day).weekday()
     print(week_day)
-    
+
     @client.event
     async def on_ready():
+        isFirstTry = True
         while True:
-            DATE, TIME = str(datetime.datetime.now() + datetime.timedelta(days=1)).split()
+            if not(isFirstTry):
+                tp = time_posting(std_time='20:00', ddd=1)
+                time.sleep(tp)
+
+            isFirstTry = False
+            DATE, TIME = str(datetime.datetime.now(datetime.timezone.utc) + datetime.timedelta(days=1, hours=3)).split()
             for i, j in enumerate(channels):
                 GROUP = groups[i]
                 CHANNEL = j
                 table = timetable(GROUP, DATE)
                 channel = client.get_channel(CHANNEL)
 
-                # for message in table_chat(table, DATE):
-                #     await channel.send(message)
+                if table:
+                    # for message in table_chat(table, DATE)[0]:
+                    #     await channel.send(message)
+                    pass
 
-            tp = time_posting(std_time='20:0')
+            # time.sleep(60)
 
-            time.sleep(tp)
+            # print(tp)
+
+
+
