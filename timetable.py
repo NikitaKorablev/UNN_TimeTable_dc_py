@@ -117,8 +117,8 @@ def time_client(client, channels):
 
                 if table:
                     for message in table_chat(table, DATE):
-                    #     await channel.send(message)
-                        pass
+                        await channel.send(message)
+                        # pass
 
             # time.sleep(60)
 

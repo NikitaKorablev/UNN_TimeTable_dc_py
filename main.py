@@ -1,7 +1,6 @@
 from discord.ext import commands
 from timetable import time_client
-# from web import web
-import os
+
 
 '''https://github.com/Rapptz/discord.py/blob/v1.7.3/examples/basic_voice.py'''
 
@@ -29,8 +28,8 @@ data_5 = []
 #     if filename.endswith('.py'):
 #         client.load_extension(f'cog.{filename[:-3]}')
 
-channels = [868936978157162516]
-# channels = [882231588832804877, 884135605150289920, 884135626855837757, 884135649614106685, 884135682371637278]
+# channels = [868936978157162516]
+channels = [882231588832804877, 884135605150289920, 884135626855837757, 884135649614106685, 884135682371637278]
 
 time_client(client, channels)
 
