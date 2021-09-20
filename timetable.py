@@ -15,7 +15,7 @@ def timetable(group, date):
         'lng': 1
     }).json()
     # print(response)
-    # print(response[0]['dayOfWeek'])
+    print('response: ', response[0])
     return response
 
 
@@ -44,6 +44,30 @@ def print_table(table, date):
 
 
 def table_chat(table, date):
+    dow_str = table[0]['dayOfWeekString']
+    webs = {'monday': {
+        'math_analysis': {'link': 'https://zoom.us/j/92825618536?pwd=NkUrbWxiTmlNQkRKVjQ',
+                          'id': '928 2561 8536',
+                          'pass': '559912'},
+        'base_programming': {
+            '09:10': {'link': 'https://teams.microsoft.com/l/meetup-j...QwNWE1O'},
+            '14:40': {'link': 'https://teams.microsoft.com/l/meetup-j...RiMmNjM'}}
+    },
+
+        'thursday': {
+            'philosophy': {
+                'lecture': {'link': ''},
+                'practice': {'link': ''}},
+            'math_analysis': {'link': 'https://zoom.us/j/98478027286?pwd=ZDRnZ1lvOWt0TDhGMGY',
+                              'id': '984 7802 7286',
+                              'pass': '504739'},
+            'disk': {'link': 'https://zoom.us/j/96239360433?pwd=amZBaTdBazYrYW03cDJzMHpOMHk0QT09',
+                     'id': '962 3936 0433',
+                     'pass': '123456'}
+    }}
+
+    algebra = {'href': 'https://zoom.us/j/4282336398?pwd=RmpJM...Z3bHlmQT09', 'id': '428 233 6398', 'pass': '123456'}
+
     date = '.'.join(date.split('-')[::-1])
     chat = 'Расписание на ' + date + '\n'
     chat_array = [chat]
@@ -92,31 +116,6 @@ def time_posting(std_time, ddd):
 
 
 def time_client(client, channels):
-    webs = {'monday': {
-                'math_analysis': {'link': 'https://zoom.us/j/92825618536?pwd=NkUrbWxiTmlNQkRKVjQ',
-                            'id': '928 2561 8536',
-                            'pass': '559912'}
-            },  'base_programming': {
-                    '09:10': {'link': 'https://teams.microsoft.com/l/meetup-j...QwNWE1O'},
-                    '14:40': {'link': 'https://teams.microsoft.com/l/meetup-j...RiMmNjM'}
-            },
-
-            'thursday': {
-                'philosophy': {
-                    'lecture': {'href': ''},
-                    'practice': {'href': ''}
-                },
-                'math_analysis': {'href': 'https://zoom.us/j/98478027286?pwd=ZDRnZ1lvOWt0TDhGMGY',
-                              'id': '984 7802 7286',
-                              'pass': '504739'}
-            }}
-
-    algebra = {'href': '', 'id': '', 'pass': ''}
-
-    year, month, day = map(int, str(datetime.datetime.now()).split()[0].split('-'))
-    week_day = datetime.date(year + 1, month, day).weekday()
-    print(week_day)
-
     @client.event
     async def on_ready():
         isFirstTry = True
@@ -134,7 +133,7 @@ def time_client(client, channels):
                 channel = client.get_channel(CHANNEL)
 
                 if table:
-                    # for message in table_chat(table, DATE)[0]:
+                    # for message in table_chat(table, DATE):
                     #     await channel.send(message)
                     pass
 
