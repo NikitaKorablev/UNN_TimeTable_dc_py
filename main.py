@@ -1,6 +1,6 @@
-import discord
 from discord.ext import commands
 from timetable import time_client
+# from web import web
 import os
 
 '''https://github.com/Rapptz/discord.py/blob/v1.7.3/examples/basic_voice.py'''

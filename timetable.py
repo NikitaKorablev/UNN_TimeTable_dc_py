@@ -1,6 +1,7 @@
 import datetime
 import requests
 import time
+from web import web
 
 groups = ['3821Б1ФИ1', '3821Б1ФИ2', '3821Б1ФИ3', '3821Б1ФИ4', '3821Б1ФИ5']
 HEADERS = {
@@ -15,7 +16,7 @@ def timetable(group, date):
         'lng': 1
     }).json()
     # print(response)
-    print('response: ', response[0])
+    # print('response: ', response.url)
     return response
 
 
@@ -45,48 +46,30 @@ def print_table(table, date):
 
 def table_chat(table, date):
     dow_str = table[0]['dayOfWeekString']
-    webs = {'monday': {
-        'math_analysis': {'link': 'https://zoom.us/j/92825618536?pwd=NkUrbWxiTmlNQkRKVjQ',
-                          'id': '928 2561 8536',
-                          'pass': '559912'},
-        'base_programming': {
-            '09:10': {'link': 'https://teams.microsoft.com/l/meetup-j...QwNWE1O'},
-            '14:40': {'link': 'https://teams.microsoft.com/l/meetup-j...RiMmNjM'}}
-    },
-
-        'thursday': {
-            'philosophy': {
-                'lecture': {'link': ''},
-                'practice': {'link': ''}},
-            'math_analysis': {'link': 'https://zoom.us/j/98478027286?pwd=ZDRnZ1lvOWt0TDhGMGY',
-                              'id': '984 7802 7286',
-                              'pass': '504739'},
-            'disk': {'link': 'https://zoom.us/j/96239360433?pwd=amZBaTdBazYrYW03cDJzMHpOMHk0QT09',
-                     'id': '962 3936 0433',
-                     'pass': '123456'}
-    }}
-
-    algebra = {'href': 'https://zoom.us/j/4282336398?pwd=RmpJM...Z3bHlmQT09', 'id': '428 233 6398', 'pass': '123456'}
 
     date = '.'.join(date.split('-')[::-1])
     chat = 'Расписание на ' + date + '\n'
     chat_array = [chat]
-    for j, i in enumerate(table):
+    for i in table:
         group = i['group'] if i['group'] else i['stream']
         a = '-' * 59 + '\n'
         lesson = i['discipline']
+        kindOfWork = i['kindOfWork']
+        beginLesson = i['beginLesson']
 
-        chat = a + lesson + ' | ' + group + '\n' + a + i['beginLesson'] + ' - ' + i['endLesson'] + '\n'
+        chat = '\n' + a + lesson + ' | ' + group + '\n' + a + beginLesson + ' - ' + i['endLesson'] + '\n'
 
         if i['building'] == 'Виртуальное':
-            chat += 'Ссылка: ' + str(j + 1) + '\n'
+            chat += i['lecturer'] + '\n'
+            chat += web(dow_str, lesson, kindOfWork, beginLesson)
+            # print(2)
         else:
             chat += i['auditorium'] + ' ' + i['building'] + '\n'
+            chat += i['lecturer'] + ' | ' + kindOfWork
 
-        chat += i['lecturer'] + ' | ' + i['kindOfWork'] + '\n'
+        print(chat)
 
         chat_array.append(chat)
-
     return chat_array
 
 
@@ -109,8 +92,8 @@ def time_posting(std_time, ddd):
 
     time_before_next_posting = int(sec + m*60 + h*3600 + day*24*3600)
 
-    print("days:", day, ";", "hours:", h, ";", "minutes:", m, ";", "seconds: ", sec)
-    print(time_before_next_posting, 'second')
+    # print("days:", day, ";", "hours:", h, ";", "minutes:", m, ";", "seconds: ", sec)
+    # print(time_before_next_posting, 'second')
 
     return time_before_next_posting
 
@@ -133,9 +116,9 @@ def time_client(client, channels):
                 channel = client.get_channel(CHANNEL)
 
                 if table:
-                    # for message in table_chat(table, DATE):
+                    for message in table_chat(table, DATE):
                     #     await channel.send(message)
-                    pass
+                        pass
 
             # time.sleep(60)
 
