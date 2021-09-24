@@ -47,4 +47,5 @@ def web(day, lesson, kindOfWork, beginLesson):
                'Код доступа: ' + str(chat['pass'])
         # print(chat + '\n')
 
+    print('something')
     return chat

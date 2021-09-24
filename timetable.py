@@ -92,7 +92,7 @@ def time_posting(std_time, ddd):
 
     time_before_next_posting = int(sec + m*60 + h*3600 + day*24*3600)
 
-    # print("days:", day, ";", "hours:", h, ";", "minutes:", m, ";", "seconds: ", sec)
+    print("days:", day, ";", "hours:", h, ";", "minutes:", m, ";", "seconds: ", sec)
     # print(time_before_next_posting, 'second')
 
     return time_before_next_posting
@@ -119,6 +119,7 @@ def time_client(client, channels):
                     for message in table_chat(table, DATE):
                         await channel.send(message)
                         # pass
+
 
             # time.sleep(60)
 
