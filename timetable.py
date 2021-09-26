@@ -3,14 +3,27 @@ import requests
 import time
 from web import web
 
+token_vk = 'c1b9bdf4ff6b9ad047e305bc0cbf0986a922e7679fdc6bb9f60cb6cbb6c52a0d29635a9afb9b9f230d6e2'
+id_vk = 206866428
 groups = ['3821Б1ФИ1', '3821Б1ФИ2', '3821Б1ФИ3', '3821Б1ФИ4', '3821Б1ФИ5']
 HEADERS = {
     'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.105 YaBrowser/21.3.3.230 Yowser/2.5 Safari/537.36'}
 
 
+def send_message(id, message, token):
+    resp = requests.post('https://api.vk.com/method/messages.send', params={
+        'user_id': id,
+        'random_id': int(time.time())-100000,
+        'access_token': token,
+        'v': 5.131,
+        'message': message
+    })
+    return resp.status_code
+
+
 def timetable(group, date):
     url = 'https://portal.unn.ru/ruzapi/schedule/group/' + group_id(group)
-    response = requests.get(url, headers=HEADERS,  params={
+    response = requests.get(url, headers=HEADERS, params={
         'start': date.replace('-', '.'),  # 'start': '2021.09.06',
         'finish': date.replace('-', '.'),  # 'finish': '2021.09.12',
         'lng': 1
@@ -75,10 +88,8 @@ def table_chat(table, date):
 
 def time_posting(std_time, ddd):
     hour, minutes = map(int, std_time.split(':'))
-
     now_d = datetime.datetime.now()
     next_day = now_d + datetime.timedelta(days=ddd)
-    # hours_next_day, minutes_next_day, _ = list(map(int, str(next_day).split()[1].split(':')))
     next_day = list(map(int, str(next_day).split()[0].split('-')))
     next_day = datetime.datetime(*next_day, hour, minutes, 0)
 
@@ -90,10 +101,10 @@ def time_posting(std_time, ddd):
         h, m, sec = [int(float(i)) for i in str(next_day - now_d).split(':')]
         day = 0
 
-    time_before_next_posting = int(sec + m*60 + h*3600 + day*24*3600)
+    time_before_next_posting = int(sec + m * 60 + h * 3600 + day * 24 * 3600)
 
     print("days:", day, ";", "hours:", h, ";", "minutes:", m, ";", "seconds: ", sec)
-    # print(time_before_next_posting, 'second')
+    send_message(id_vk, f'Time posting: days: {day}; hours: {h}; minutes: {m}; seconds: {sec}', token_vk)
 
     return time_before_next_posting
 
@@ -103,12 +114,16 @@ def time_client(client, channels):
     async def on_ready():
         isFirstTry = True
         while True:
-            if not(isFirstTry):
+            if not (isFirstTry):
                 tp = time_posting(std_time='20:00', ddd=1)
                 time.sleep(tp)
 
             isFirstTry = False
             DATE, TIME = str(datetime.datetime.now(datetime.timezone.utc) + datetime.timedelta(days=1, hours=3)).split()
+
+            print(str(datetime.datetime.now(datetime.timezone.utc) + datetime.timedelta(hours=3)))  # Распечатать
+            send_message(id_vk, 'Time now (+3): ' + str(datetime.datetime.now(datetime.timezone.utc) + datetime.timedelta(hours=3)),token_vk)
+
             for i, j in enumerate(channels):
                 GROUP = groups[i]
                 CHANNEL = j
@@ -118,12 +133,4 @@ def time_client(client, channels):
                 if table:
                     for message in table_chat(table, DATE):
                         await channel.send(message)
-                        # pass
-
-
-            # time.sleep(60)
-
-            # print(tp)
-
-
 
