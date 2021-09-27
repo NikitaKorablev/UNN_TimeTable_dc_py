@@ -80,16 +80,23 @@ def table_chat(table, date):
             chat += i['auditorium'] + ' ' + i['building'] + '\n'
             chat += i['lecturer'] + ' | ' + kindOfWork
 
-        print(chat)
+        # print(chat)
 
         chat_array.append(chat)
     return chat_array
 
 
-def time_posting(std_time, ddd):
+def time_posting(std_time):
+    test_arr = []
     hour, minutes = map(int, std_time.split(':'))
-    now_d = datetime.datetime.now()
-    next_day = now_d + datetime.timedelta(days=ddd)
+
+    now_d = datetime.datetime.now(datetime.timezone.utc) + datetime.timedelta(hours=3)
+    now_d = str(now_d).split('.')[0].split()
+    now_d_date = list(map(int, now_d[0].split('-')))
+    now_d_time = list(map(int, now_d[1].split(':')))
+    now_d = datetime.datetime(now_d_date[0], now_d_date[1], now_d_date[2], now_d_time[0], now_d_time[1], now_d_time[2])
+
+    next_day = now_d + datetime.timedelta(days=1)
     next_day = list(map(int, str(next_day).split()[0].split('-')))
     next_day = datetime.datetime(*next_day, hour, minutes, 0)
 
@@ -103,8 +110,8 @@ def time_posting(std_time, ddd):
 
     time_before_next_posting = int(sec + m * 60 + h * 3600 + day * 24 * 3600)
 
-    print("days:", day, ";", "hours:", h, ";", "minutes:", m, ";", "seconds: ", sec)
-    send_message(id_vk, f'Time posting: days: {day}; hours: {h}; minutes: {m}; seconds: {sec}', token_vk)
+    # print("days:", day, ";", "hours:", h, ";", "minutes:", m, ";", "seconds: ", sec)
+    # send_message(id_vk, f'Time posting: days: {day}; hours: {h}; minutes: {m}; seconds: {sec}', token_vk)
 
     return time_before_next_posting
 
@@ -114,15 +121,15 @@ def time_client(client, channels):
     async def on_ready():
         isFirstTry = True
         while True:
-            if not (isFirstTry):
-                tp = time_posting(std_time='20:00', ddd=1)
-                time.sleep(tp)
+            # if not (isFirstTry):
+            tp = time_posting(std_time='20:00')
+            time.sleep(tp)
+            # isFirstTry = False
 
-            isFirstTry = False
             DATE, TIME = str(datetime.datetime.now(datetime.timezone.utc) + datetime.timedelta(days=1, hours=3)).split()
 
-            print(str(datetime.datetime.now(datetime.timezone.utc) + datetime.timedelta(hours=3)))  # Распечатать
-            send_message(id_vk, 'Time now (+3): ' + str(datetime.datetime.now(datetime.timezone.utc) + datetime.timedelta(hours=3)),token_vk)
+            # print(str(datetime.datetime.now(datetime.timezone.utc) + datetime.timedelta(hours=3)))  # Распечатать
+            # send_message(id_vk, 'Time now (+3): ' + str(datetime.datetime.now(datetime.timezone.utc) + datetime.timedelta(hours=3)), token_vk)
 
             for i, j in enumerate(channels):
                 GROUP = groups[i]
@@ -130,7 +137,11 @@ def time_client(client, channels):
                 table = timetable(GROUP, DATE)
                 channel = client.get_channel(CHANNEL)
 
+                await channel.send("time: " + str(datetime.datetime.now()))
+
+
                 if table:
                     for message in table_chat(table, DATE):
-                        await channel.send(message)
+                        # await channel.send(message)
+                        pass
 
