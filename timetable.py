@@ -62,6 +62,7 @@ def table_chat(table, date):
 
     date = '.'.join(date.split('-')[::-1])
     chat = 'Расписание на ' + date + '\n'
+    # print(chat + '\n')
     chat_array = [chat]
     for i in table:
         group = i['group'] if i['group'] else i['stream']
@@ -142,6 +143,7 @@ def time_client(client, channels):
 
                 if table:
                     for message in table_chat(table, DATE):
-                        # await channel.send(message)
+                        # print(message)
+                        await channel.send(message)
                         pass
 
