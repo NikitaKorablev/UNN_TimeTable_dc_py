@@ -121,10 +121,11 @@ def time_client(client, channels):
     async def on_ready():
         isFirstTry = True
         while True:
-            # if not (isFirstTry):
-            tp = time_posting(std_time='20:00')
-            time.sleep(tp)
-            # isFirstTry = False
+            if not (isFirstTry):
+                tp = time_posting(std_time='20:00')
+                time.sleep(tp)
+
+            isFirstTry = False
 
             DATE, TIME = str(datetime.datetime.now(datetime.timezone.utc) + datetime.timedelta(days=1, hours=3)).split()
 
@@ -137,8 +138,7 @@ def time_client(client, channels):
                 table = timetable(GROUP, DATE)
                 channel = client.get_channel(CHANNEL)
 
-                await channel.send("time: " + str(datetime.datetime.now()))
-
+                # await channel.send("time: " + str(datetime.datetime.now()))
 
                 if table:
                     for message in table_chat(table, DATE):
