@@ -112,7 +112,7 @@ def time_posting(std_time):
     time_before_next_posting = int(sec + m * 60 + h * 3600 + day * 24 * 3600)
 
     # print("days:", day, ";", "hours:", h, ";", "minutes:", m, ";", "seconds: ", sec)
-    # send_message(id_vk, f'Time posting: days: {day}; hours: {h}; minutes: {m}; seconds: {sec}', token_vk)
+    send_message(id_vk, f'Time posting: days: {day}; hours: {h}; minutes: {m}; seconds: {sec}', token_vk)
 
     return time_before_next_posting
 
@@ -122,16 +122,19 @@ def time_client(client, channels):
     async def on_ready():
         isFirstTry = True
         while True:
-            if not (isFirstTry):
-                tp = time_posting(std_time='20:00')
-                time.sleep(tp)
+            if isFirstTry:
+                send_message(id_vk, "Reboot", token_vk)
+            
+            # if not (isFirstTry):
+            tp = time_posting(std_time='20:00')
+            time.sleep(tp)
 
-            isFirstTry = False
+            # isFirstTry = False
 
             DATE, TIME = str(datetime.datetime.now(datetime.timezone.utc) + datetime.timedelta(days=1, hours=3)).split()
 
             # print(str(datetime.datetime.now(datetime.timezone.utc) + datetime.timedelta(hours=3)))  # Распечатать
-            # send_message(id_vk, 'Time now (+3): ' + str(datetime.datetime.now(datetime.timezone.utc) + datetime.timedelta(hours=3)), token_vk)
+            send_message(id_vk, 'Time now (+3): ' + str(datetime.datetime.now(datetime.timezone.utc) + datetime.timedelta(hours=3)), token_vk)
 
             for i, j in enumerate(channels):
                 GROUP = groups[i]
