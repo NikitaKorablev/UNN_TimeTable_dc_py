@@ -10,10 +10,10 @@ HEADERS = {
     'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.105 YaBrowser/21.3.3.230 Yowser/2.5 Safari/537.36'}
 
 
-def send_message(id, message, token):
+def send_message(message, id=id_vk, token=token_vk):
     resp = requests.post('https://api.vk.com/method/messages.send', params={
         'user_id': id,
-        'random_id': int(time.time())-100000,
+        'random_id': int(time.time()) - 100000,
         'access_token': token,
         'v': 5.131,
         'message': message
@@ -87,34 +87,58 @@ def table_chat(table, date):
     return chat_array
 
 
-def time_posting(std_time):
-    test_arr = []
-    hour, minutes = map(int, std_time.split(':'))
+def get_post_info(today, next_d, ask_day):
+    with open("log.txt", "r") as f:
+        post1, post2 = f.read().split('\n')
+        p1_b, p1_d = post1.split()
+        p2_b, p2_d = post2.split()
 
-    now_d = datetime.datetime.now(datetime.timezone.utc) + datetime.timedelta(hours=3)
-    now_d = str(now_d).split('.')[0].split()
-    now_d_date = list(map(int, now_d[0].split('-')))
-    now_d_time = list(map(int, now_d[1].split(':')))
-    now_d = datetime.datetime(now_d_date[0], now_d_date[1], now_d_date[2], now_d_time[0], now_d_time[1], now_d_time[2])
-
-    next_day = now_d + datetime.timedelta(days=1)
-    next_day = list(map(int, str(next_day).split()[0].split('-')))
-    next_day = datetime.datetime(*next_day, hour, minutes, 0)
-
-    if ',' in str(next_day - now_d):
-        day, clock = str(next_day - now_d).split(',')
-        h, m, sec = [int(float(i)) for i in clock.split(':')]
-        day = int(day.split()[0])
+    if ask_day == 'today':
+        if p1_d == today:
+            return int(p1_b)
+        if p2_d == today:
+            return int(p2_b) #
+        return 0
     else:
-        h, m, sec = [int(float(i)) for i in str(next_day - now_d).split(':')]
-        day = 0
+        if p1_d == next_d:
+            return int(p2_b)
+        if p2_d == next_d:
+            return int(p2_b)
+        return 0
 
-    time_before_next_posting = int(sec + m * 60 + h * 3600 + day * 24 * 3600)
 
-    # print("days:", day, ";", "hours:", h, ";", "minutes:", m, ";", "seconds: ", sec)
-    send_message(id_vk, f'Time posting: days: {day}; hours: {h}; minutes: {m}; seconds: {sec}', token_vk)
+def set_post_info(today, next_d, ask_day):
+    with open("log.txt", "r") as f:
+        post1, post2 = f.read().split('\n')
+        p1_b, p1_d = post1.split()
+        p2_b, p2_d = post2.split()
+    with open("log.txt", "w") as f:
+        if ask_day == 'today':
+            if p2_d == today:
+                f.write(f'1 {today}\n')
+                f.write(f'1 {today}')
+            else:
+                f.write(f'1 {today}\n')
+                f.write(f'{post2}')
+        else:
+            if p2_d == today:
+                f.write(f'{post2}\n')
+                f.write(f'1 {next_d}')
+            else:
+                f.write(f'{post1}\n')
+                f.write(f'1 {next_d}')
 
-    return time_before_next_posting
+
+def time_posting(std, time_n, ask_day):
+    t_n = list(map(int, time_n.split('.')[0].split(':')))
+    for i in range(2):
+        t_n[i] = t_n[i] * pow(60, 2-i)
+        std[i] = std[i] * pow(60, 2-i)
+    time_to_post = sum(std)-sum(t_n)
+    if ask_day == 'today':
+        return time_to_post
+    else:
+        return 24*pow(60,2)+time_to_post
 
 
 def time_client(client, channels):
@@ -122,31 +146,48 @@ def time_client(client, channels):
     async def on_ready():
         isFirstTry = True
         while True:
+
             if isFirstTry:
-                send_message(id_vk, "Reboot", token_vk)
-            
-            # if not (isFirstTry):
-            tp = time_posting(std_time='20:00')
-            time.sleep(tp)
+                send_message("Reboot")
+            isFirstTry = False
 
-            # isFirstTry = False
+            date_now, time_now = str(datetime.datetime.now(datetime.timezone.utc) + datetime.timedelta(hours=3)).split()
+            date_next_d = str(datetime.datetime.now(datetime.timezone.utc) + datetime.timedelta(days=1, hours=3)).split()[0]
 
-            DATE, TIME = str(datetime.datetime.now(datetime.timezone.utc) + datetime.timedelta(days=1, hours=3)).split()
 
-            # print(str(datetime.datetime.now(datetime.timezone.utc) + datetime.timedelta(hours=3)))  # Распечатать
-            send_message(id_vk, 'Time now (+3): ' + str(datetime.datetime.now(datetime.timezone.utc) + datetime.timedelta(hours=3)), token_vk)
+            if not get_post_info(date_now, date_next_d, 'today'):
+                for i, j in enumerate(channels):
+                    table = timetable(groups[i], date_now)
+                    channel = client.get_channel(j)
 
-            for i, j in enumerate(channels):
-                GROUP = groups[i]
-                CHANNEL = j
-                table = timetable(GROUP, DATE)
-                channel = client.get_channel(CHANNEL)
+                    if table:
+                        for message in table_chat(table, date_now):
+                            await channel.send(message)
+                            # pass
+                print('Расписание на сегодня отправлено')
+                send_message('Расписание на сегодня отправлено')
+                set_post_info(date_now, date_next_d, 'today')
 
-                # await channel.send("time: " + str(datetime.datetime.now()))
 
-                if table:
-                    for message in table_chat(table, DATE):
-                        # print(message)
-                        await channel.send(message)
-                        pass
-
+            if not get_post_info(date_now, date_next_d, 'next day'):
+                if int(time_now.split(':')[0]) >= 20:
+                    for i, j in enumerate(channels):
+                        table = timetable(groups[i], date_next_d)
+                        channel = client.get_channel(j)
+                        if table:
+                            for message in table_chat(table, date_next_d):
+                                await channel.send(message)
+                                # pass
+                    print('Расписание на завтра отправлено')
+                    send_message('Расписание на завтра отправлено')
+                    set_post_info(date_now, date_next_d, 'next day')
+                else:
+                    tp = time_posting([20, 0, 0], time_now, 'today')
+                    print(f'I sleep {tp} sec')
+                    send_message(f'I sleep {tp} sec')
+                    time.sleep(tp)
+            else:
+                tp = time_posting([20, 0, 0], time_now, 'next day')
+                print(f'I sleep {tp} sec')
+                send_message(f'I sleep {tp} sec')
+                time.sleep(tp)

@@ -1,41 +1,39 @@
-import datetime
-import requests
-
-HEADERS = {
-    'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.105 YaBrowser/21.3.3.230 Yowser/2.5 Safari/537.36'}
 
 
-def timetable(group, date):
-    url = 'https://portal.unn.ru/ruzapi/schedule/group/' + group_id(group)
-    response = requests.get(url, headers=HEADERS, params={
-        'start': date.replace('-', '.'),  # 'start': '2021.09.06',
-        'finish': date.replace('-', '.'),  # 'finish': '2021.09.12',
-        'lng': 1
-    }).json()
-    print()
-    return response
+
+"""def time_posting(std_time,ask_day):
+
+    test_arr = []
+    hour, minutes = map(int, std_time.split(':'))
+
+    now_d = datetime.datetime.now(datetime.timezone.utc) + datetime.timedelta(hours=3)
+    now_d = str(now_d).split('.')[0].split()
+    now_d_date = list(map(int, now_d[0].split('-')))
+    now_d_time = list(map(int, now_d[1].split(':')))
+    now_d = datetime.datetime(now_d_date[0], now_d_date[1], now_d_date[2], now_d_time[0], now_d_time[1], now_d_time[2])
+
+    next_day = now_d + datetime.timedelta(days=1)
+    next_day = list(map(int, str(next_day).split()[0].split('-')))
+    next_day = datetime.datetime(*next_day, hour, minutes, 0)
+
+    if ',' in str(next_day - now_d):
+        day, clock = str(next_day - now_d).split(',')
+        h, m, sec = [int(float(i)) for i in clock.split(':')]
+        day = int(day.split()[0])
+    else:
+        h, m, sec = [int(float(i)) for i in str(next_day - now_d).split(':')]
+        day = 0
+
+    time_before_next_posting = int(sec + m * 60 + h * 3600 + day * 24 * 3600)
+
+    # send_message(f'Time posting: days: {day}; hours: {h}; minutes: {m}; seconds: {sec}')
+
+    return time_before_next_posting
 
 
-def group_id(group):
-    url = 'https://portal.unn.ru/ruzapi/search'
-    response = requests.get(url, headers=HEADERS, params={
-        'type': 'group',
-        'term': group.encode()
-    })
-    id = response.json()[0]['id']
-    return id
+    # tp = time_posting(std_time='20:00')
+    # time.sleep(tp)
 
 
-channels = [868936978157162516]
-groups = ['3821Б1ФИ1']
-for n in range(0, 6):
-    DATE, TIME = str(datetime.datetime.now(datetime.timezone.utc) + datetime.timedelta(days=n, hours=3)).split()
-    for i, j in enumerate(channels):
-        GROUP = groups[i]
-        CHANNEL = j
-        table = timetable(GROUP, DATE)
-        # print(table)
-        for k in range(len(table)):
-            print(table[k]['kindOfWork'])
 
-
+    """
