@@ -97,7 +97,7 @@ def get_post_info(today, next_d, ask_day):
         if p1_d == today:
             return int(p1_b)
         if p2_d == today:
-            return int(p2_b) #
+            return int(p2_b)
         return 0
     else:
         if p1_d == next_d:
@@ -154,11 +154,11 @@ def time_client(client, channels):
             date_now, time_now = str(datetime.datetime.now(datetime.timezone.utc) + datetime.timedelta(hours=3)).split()
             date_next_d = str(datetime.datetime.now(datetime.timezone.utc) + datetime.timedelta(days=1, hours=3)).split()[0]
 
-
             if not get_post_info(date_now, date_next_d, 'today'):
                 for i, j in enumerate(channels):
                     table = timetable(groups[i], date_now)
                     channel = client.get_channel(j)
+                    await channel.purge()
 
                     if table:
                         for message in table_chat(table, date_now):
@@ -168,12 +168,12 @@ def time_client(client, channels):
                 send_message('Расписание на сегодня отправлено')
                 set_post_info(date_now, date_next_d, 'today')
 
-
             if not get_post_info(date_now, date_next_d, 'next day'):
                 if int(time_now.split(':')[0]) >= 20:
                     for i, j in enumerate(channels):
                         table = timetable(groups[i], date_next_d)
                         channel = client.get_channel(j)
+                        await channel.purge()
                         if table:
                             for message in table_chat(table, date_next_d):
                                 await channel.send(message)
