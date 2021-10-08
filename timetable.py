@@ -16,7 +16,7 @@ def send_message(message, id=id_vk, token=token_vk):
         'random_id': int(time.time()) - 100000,
         'access_token': token,
         'v': 5.131,
-        'message': message
+        'message': message +'\n'+read_only()
     })
     return resp.status_code
 
@@ -86,6 +86,10 @@ def table_chat(table, date):
         chat_array.append(chat)
     return chat_array
 
+def read_only():
+    with open("log.txt", "r") as f:
+        return f.read()
+
 
 def get_post_info(today, next_d, ask_day):
     with open("log.txt", "r") as f:
@@ -151,6 +155,8 @@ def time_client(client, channels):
                 send_message("Reboot")
             isFirstTry = False
 
+
+
             date_now, time_now = str(datetime.datetime.now(datetime.timezone.utc) + datetime.timedelta(hours=3)).split()
             date_next_d = str(datetime.datetime.now(datetime.timezone.utc) + datetime.timedelta(days=1, hours=3)).split()[0]
 
@@ -164,9 +170,9 @@ def time_client(client, channels):
                         for message in table_chat(table, date_now):
                             await channel.send(message)
                             # pass
+                set_post_info(date_now, date_next_d, 'today')
                 print('Расписание на сегодня отправлено')
                 send_message('Расписание на сегодня отправлено')
-                set_post_info(date_now, date_next_d, 'today')
 
             if not get_post_info(date_now, date_next_d, 'next day'):
                 if int(time_now.split(':')[0]) >= 20:
@@ -178,9 +184,9 @@ def time_client(client, channels):
                             for message in table_chat(table, date_next_d):
                                 await channel.send(message)
                                 # pass
+                    set_post_info(date_now, date_next_d, 'next day')
                     print('Расписание на завтра отправлено')
                     send_message('Расписание на завтра отправлено')
-                    set_post_info(date_now, date_next_d, 'next day')
                 else:
                     tp = time_posting([20, 0, 0], time_now, 'today')
                     print(f'I sleep {tp} sec')
