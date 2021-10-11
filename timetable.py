@@ -66,10 +66,12 @@ def table_chat(table, date):
     chat_array = [chat]
     for i in table:
         group = i['group'] if i['group'] else i['stream']
+        if not group: group = i['stream'] if i['stream'] else i['subGroup']
         a = '-' * 59 + '\n'
         lesson = i['discipline']
         kindOfWork = i['kindOfWork']
         beginLesson = i['beginLesson']
+
 
         chat = '\n' + a + lesson + ' | ' + group + '\n' + a + beginLesson + ' - ' + i['endLesson'] + '\n'
 
@@ -144,6 +146,7 @@ def time_posting(std, time_n, ask_day):
     else:
         return 24*pow(60,2)+time_to_post
 
+HOUR = 19
 
 def time_client(client, channels):
     @client.event
@@ -154,7 +157,6 @@ def time_client(client, channels):
             if isFirstTry:
                 send_message("Reboot")
             isFirstTry = False
-
 
 
             date_now, time_now = str(datetime.datetime.now(datetime.timezone.utc) + datetime.timedelta(hours=3)).split()
@@ -175,7 +177,7 @@ def time_client(client, channels):
                 send_message('Расписание на сегодня отправлено')
 
             if not get_post_info(date_now, date_next_d, 'next day'):
-                if int(time_now.split(':')[0]) >= 20:
+                if int(time_now.split(':')[0]) >= HOUR:
                     for i, j in enumerate(channels):
                         table = timetable(groups[i], date_next_d)
                         channel = client.get_channel(j)
@@ -188,12 +190,12 @@ def time_client(client, channels):
                     print('Расписание на завтра отправлено')
                     send_message('Расписание на завтра отправлено')
                 else:
-                    tp = time_posting([20, 0, 0], time_now, 'today')
+                    tp = time_posting([HOUR, 0, 0], time_now, 'today')
                     print(f'I sleep {tp} sec')
                     send_message(f'I sleep {tp} sec')
                     time.sleep(tp)
             else:
-                tp = time_posting([20, 0, 0], time_now, 'next day')
+                tp = time_posting([HOUR, 0, 0], time_now, 'next day')
                 print(f'I sleep {tp} sec')
                 send_message(f'I sleep {tp} sec')
                 time.sleep(tp)
