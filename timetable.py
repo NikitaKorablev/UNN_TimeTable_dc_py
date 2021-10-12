@@ -148,16 +148,13 @@ def time_posting(std, time_n, ask_day):
 
 HOUR = 19
 
+
 def time_client(client, channels):
     @client.event
     async def on_ready():
-        isFirstTry = True
+
+        send_message("Reboot")
         while True:
-
-            if isFirstTry:
-                send_message("Reboot")
-            isFirstTry = False
-
 
             date_now, time_now = str(datetime.datetime.now(datetime.timezone.utc) + datetime.timedelta(hours=3)).split()
             date_next_d = str(datetime.datetime.now(datetime.timezone.utc) + datetime.timedelta(days=1, hours=3)).split()[0]
