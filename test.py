@@ -37,3 +37,43 @@
 
 
     """
+
+"""
+if not get_post_info(date_now, date_next_d, 'today'):
+    for i, j in enumerate(channels):
+        table = timetable(groups[i], date_now)
+        channel = client.get_channel(j)
+        await channel.purge()
+
+        if table:
+            for message in table_chat(table, date_now):
+                await channel.send(message)
+                # pass
+    set_post_info(date_now, date_next_d, 'today')
+    print('Расписание на сегодня отправлено')
+    send_message('Расписание на сегодня отправлено')
+
+if not get_post_info(date_now, date_next_d, 'next day'):
+    if int(time_now.split(':')[0]) >= HOUR:
+        for i, j in enumerate(channels):
+            table = timetable(groups[i], date_next_d)
+            channel = client.get_channel(j)
+            await channel.purge()
+            if table:
+                for message in table_chat(table, date_next_d):
+                    await channel.send(message)
+                    # pass
+        set_post_info(date_now, date_next_d, 'next day')
+        print('Расписание на завтра отправлено')
+        send_message('Расписание на завтра отправлено')
+    else:
+        tp = time_posting([HOUR, 0, 0], time_now, 'today')
+        print(f'I sleep {tp} sec')
+        send_message(f'I sleep {tp} sec')
+        time.sleep(tp)
+else:
+    tp = time_posting([HOUR, 0, 0], time_now, 'next day')
+    print(f'I sleep {tp} sec')
+    send_message(f'I sleep {tp} sec')
+    time.sleep(tp)
+"""

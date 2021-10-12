@@ -159,40 +159,23 @@ def time_client(client, channels):
             date_now, time_now = str(datetime.datetime.now(datetime.timezone.utc) + datetime.timedelta(hours=3)).split()
             date_next_d = str(datetime.datetime.now(datetime.timezone.utc) + datetime.timedelta(days=1, hours=3)).split()[0]
 
-            if not get_post_info(date_now, date_next_d, 'today'):
+            ask_day = 'next day' if int(time_now.split(':')[0]) >= HOUR else 'today'
+            ask_date = date_next_d if int(time_now.split(':')[0]) >= HOUR else date_now
+
+            if not get_post_info(date_now, date_next_d, ask_day):
                 for i, j in enumerate(channels):
-                    table = timetable(groups[i], date_now)
+                    table = timetable(groups[i], ask_date)
                     channel = client.get_channel(j)
                     await channel.purge()
-
                     if table:
-                        for message in table_chat(table, date_now):
+                        for message in table_chat(table, ask_date):
                             await channel.send(message)
                             # pass
-                set_post_info(date_now, date_next_d, 'today')
-                print('Расписание на сегодня отправлено')
-                send_message('Расписание на сегодня отправлено')
+                set_post_info(date_now, date_next_d, ask_day)
+                print(f'Расписание на {ask_day} отправлено')
+                send_message(f'Расписание на {ask_day} отправлено')
 
-            if not get_post_info(date_now, date_next_d, 'next day'):
-                if int(time_now.split(':')[0]) >= HOUR:
-                    for i, j in enumerate(channels):
-                        table = timetable(groups[i], date_next_d)
-                        channel = client.get_channel(j)
-                        await channel.purge()
-                        if table:
-                            for message in table_chat(table, date_next_d):
-                                await channel.send(message)
-                                # pass
-                    set_post_info(date_now, date_next_d, 'next day')
-                    print('Расписание на завтра отправлено')
-                    send_message('Расписание на завтра отправлено')
-                else:
-                    tp = time_posting([HOUR, 0, 0], time_now, 'today')
-                    print(f'I sleep {tp} sec')
-                    send_message(f'I sleep {tp} sec')
-                    time.sleep(tp)
-            else:
-                tp = time_posting([HOUR, 0, 0], time_now, 'next day')
-                print(f'I sleep {tp} sec')
-                send_message(f'I sleep {tp} sec')
-                time.sleep(tp)
+            tp = time_posting([HOUR, 0, 0], time_now, ask_day)
+            print(f'I sleep {tp} sec')
+            send_message(f'I sleep {tp} sec')
+            time.sleep(tp)
