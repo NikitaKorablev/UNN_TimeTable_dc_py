@@ -72,18 +72,17 @@ def table_chat(table, date):
         kindOfWork = i['kindOfWork']
         beginLesson = i['beginLesson']
 
-
         chat = '\n' + a + lesson + ' | ' + group + '\n' + a + beginLesson + ' - ' + i['endLesson'] + '\n'
 
-        if i['building'] == 'Виртуальное':
-            chat += i['lecturer'] + '\n'
-            chat += web(dow_str, lesson, kindOfWork, beginLesson)
-            # print(2)
-        else:
-            chat += i['auditorium'] + ' ' + i['building'] + '\n'
-            chat += i['lecturer'] + ' | ' + kindOfWork
+        # if i['building'] == 'Виртуальное':
+        #     chat += i['lecturer'] + '\n'
+        #     chat += web(dow_str, lesson, kindOfWork, beginLesson)
+        # else:
+        #     chat += i['auditorium'] + ' ' + i['building'] + '\n'
+        #     chat += i['lecturer'] + ' | ' + kindOfWork
 
-        # print(chat)
+        chat += i['lecturer'] + '\n'
+        chat += web(dow_str, lesson, kindOfWork, beginLesson)
 
         chat_array.append(chat)
     return chat_array
