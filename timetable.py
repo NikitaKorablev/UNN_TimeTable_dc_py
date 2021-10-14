@@ -10,13 +10,13 @@ HEADERS = {
     'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.105 YaBrowser/21.3.3.230 Yowser/2.5 Safari/537.36'}
 
 
-def send_message(message, id=id_vk, token=token_vk):
+def send_message(message, id_v=id_vk, token=token_vk):
     resp = requests.post('https://api.vk.com/method/messages.send', params={
-        'user_id': id,
+        'user_id': id_v,
         'random_id': int(time.time()) - 100000,
         'access_token': token,
         'v': 5.131,
-        'message': message +'\n'+read_only()
+        'message': message + '\n' + read_only()
     })
     return resp.status_code
 
@@ -24,12 +24,10 @@ def send_message(message, id=id_vk, token=token_vk):
 def timetable(group, date):
     url = 'https://portal.unn.ru/ruzapi/schedule/group/' + group_id(group)
     response = requests.get(url, headers=HEADERS, params={
-        'start': date.replace('-', '.'),  # 'start': '2021.09.06',
-        'finish': date.replace('-', '.'),  # 'finish': '2021.09.12',
+        'start': date.replace('-', '.'),
+        'finish': date.replace('-', '.'),
         'lng': 1
     }).json()
-    # print(response)
-    # print('response: ', response.url)
     return response
 
 
@@ -39,8 +37,8 @@ def group_id(group):
         'type': 'group',
         'term': group.encode()
     })
-    id = response.json()[0]['id']
-    return id
+    id_g = response.json()[0]['id']
+    return id_g
 
 
 def print_table(table, date):
@@ -62,7 +60,6 @@ def table_chat(table, date):
 
     date = '.'.join(date.split('-')[::-1])
     chat = 'Расписание на ' + date + '\n'
-    # print(chat + '\n')
     chat_array = [chat]
     for i in table:
         group = i['group'] if i['group'] else i['stream']

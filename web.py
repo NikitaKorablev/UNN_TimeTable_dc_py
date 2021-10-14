@@ -39,15 +39,18 @@ webs = {'Пн': {
                                 'id': '268 590 6294', 'pass': 'gy2Ugd'}
     }
 }
+def f_chat(chat):
+    return 'Ссылка на конференцию: {link}\n' \
+               'Идентификатор конференции: {id}\n' \
+               'Код доступа: {pass}'.format(**chat)
 
 
 def web(day, lesson, beginLesson, kindOfWork):
     if lesson == 'Введение в проектную деятельность':
-        chat = ''
-    elif lesson == 'Основы программирования':
-        chat = 'Ссылка на конференцию: ' + webs[day][lesson][beginLesson]['link']
-    else:
-        chat = 'Ссылка на конференцию: {link}\n' \
-               'Идентификатор конференции: {id}\n' \
-               'Код доступа: {pass}'.format(**webs[day][lesson])
-    return chat
+        return f_chat(webs[day][lesson][kindOfWork])
+    if lesson == 'Основы программирования':
+        return f_chat(webs[day][lesson][beginLesson])
+    if day == 'Пт':
+        return f_chat(webs[day]['Математический анализ']) if beginLesson == '09:10' else f_chat(webs[day]['Алгебра и геометрия'])
+    return f_chat(webs[day][lesson])
+
