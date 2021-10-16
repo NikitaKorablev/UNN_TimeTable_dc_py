@@ -64,21 +64,13 @@ def table_chat(table, date):
     for i in table:
         group = i['group'] if i['group'] else i['stream']
         if not group: group = i['stream'] if i['stream'] else i['subGroup']
-        a = '-' * 59 + '\n'
+        a = '\n'+'-' * 59 + '\n'
         lesson = i['discipline']
         kindOfWork = i['kindOfWork']
         beginLesson = i['beginLesson']
 
-        chat = '\n' + a + lesson + ' | ' + group + '\n' + a + beginLesson + ' - ' + i['endLesson'] + '\n'
+        chat = f"{a}{lesson} | {group}{a} {beginLesson} - {i['endLesson']}\n{i['lecturer']}\n"
 
-        # if i['building'] == 'Виртуальное':
-        #     chat += i['lecturer'] + '\n'
-        #     chat += web(dow_str, lesson, kindOfWork, beginLesson)
-        # else:
-        #     chat += i['auditorium'] + ' ' + i['building'] + '\n'
-        #     chat += i['lecturer'] + ' | ' + kindOfWork
-
-        chat += i['lecturer'] + '\n'
         chat += web(dow_str, lesson, kindOfWork, beginLesson)
 
         chat_array.append(chat)
