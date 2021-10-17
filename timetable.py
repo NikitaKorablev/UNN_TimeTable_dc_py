@@ -55,11 +55,11 @@ def print_table(table, date):
             print(i['auditorium'], i['building'] + '\n')
 
 
-def table_chat(table, date):
+def table_chat(table, date, group_name):
     dow_str = table[0]['dayOfWeekString']
 
     date = '.'.join(date.split('-')[::-1])
-    chat = 'Расписание на ' + date + '\n'
+    chat = 'Расписание на ' + date +' | '+ group_name +'\n'
     chat_array = [chat]
     for i in table:
         group = i['group'] if i['group'] else i['stream']
@@ -69,9 +69,9 @@ def table_chat(table, date):
         kindOfWork = i['kindOfWork']
         beginLesson = i['beginLesson']
 
-        chat = f"{a}{lesson} | {group}{a} {beginLesson} - {i['endLesson']}\n{i['lecturer']}\n"
+        chat = f"{a}{lesson} | {group}{a}{beginLesson} - {i['endLesson']}\n{i['lecturer']}\n"
 
-        chat += web(dow_str, lesson, kindOfWork, beginLesson)
+        chat += web(dow_str, lesson,beginLesson, kindOfWork, group_name)
 
         chat_array.append(chat)
     return chat_array
@@ -156,9 +156,9 @@ def time_client(client, channels):
                     channel = client.get_channel(j)
                     await channel.purge()
                     if table:
-                        for message in table_chat(table, ask_date):
+                        for message in table_chat(table, ask_date,groups[i]):
                             await channel.send(message)
-                            # pass
+                            # print(message)
                 set_post_info(date_now, date_next_d, ask_day)
                 print(f'Расписание на {ask_day} отправлено')
                 send_message(f'Расписание на {ask_day} отправлено')
