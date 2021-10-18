@@ -135,13 +135,15 @@ def time_posting(std, time_n, ask_day):
         return 24*pow(60,2)+time_to_post
 
 HOUR = 19
-
+Activated = True
 
 def time_client(client, channels):
     @client.event
     async def on_ready():
-
-        send_message("Reboot")
+        global Activated
+        if not Activated:
+            send_message("Reboot")
+            Activated = False
         while True:
 
             date_now, time_now = str(datetime.datetime.now(datetime.timezone.utc) + datetime.timedelta(hours=3)).split()
