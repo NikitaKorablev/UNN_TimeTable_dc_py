@@ -3,9 +3,9 @@ webs_lecture = {  # одинаково у всех (все лекции)
         'Математический анализ': {'link': 'https://zoom.us/j/92825618536?pwd=NkUrbWxiTmlNQkRKVjQ',
                                   'id': '928 2561 8536', 'pass': '559912'},
         'Основы программирования': {
-            '09:10': {'link': 'https://teams.microsoft.com/l/meetup-j...QwNWE1O',
+            '09:10': {'link': 'https://teams.microsoft.com/l/meetup-join/19%3ameeting_Yzc1Njc3OWQtODdmZi00NTU5LWE3ZmYtMTFmYTQwNWE1ODJj%40thread.v2/0?context=%7b%22Tid%22%3a%2260b6ee4f-43c2-4c1f-b509-d6fad245297a%22%2c%22Oid%22%3a%225296e582-edba-4b94-ba1f-ca426c653e15%22%7d',
                       'id': '', 'pass': ''},
-            '14:40': {'link': 'https://teams.microsoft.com/l/meetup-j...RiMmNjM',
+            '14:40': {'link': 'https://teams.microsoft.com/l/meetup-join/19%3ameeting_YzM3Yzc2YzEtYTE0Yy00NzM4LThkMjQtMWNlMDRiMmNjMjUx%40thread.v2/0?context=%7b%22Tid%22%3a%2260b6ee4f-43c2-4c1f-b509-d6fad245297a%22%2c%22Oid%22%3a%225296e582-edba-4b94-ba1f-ca426c653e15%22%7d',
                       'id': '', 'pass': ''}},
         'Алгебра и геометрия': {'link': 'https://zoom.us/j/4282336398?pwd=RmpJM...Z3bHlmQT09',
                                 'id': '428 233 6398', 'pass': '123456'}
@@ -15,7 +15,7 @@ webs_lecture = {  # одинаково у всех (все лекции)
         'Физическая культура и спорт (элективная дисциплина)': {'link': '', 'id': '', 'pass': ''}
     },
     'Чт': {
-        'Введение в проектную деятельность': {  # это список лекций. практика по ввд будет отдельно
+        'Введение в проектную деятельность': {  
             'link': 'https://us02web.zoom.us/j/89480339991?pwd=c0NjcllNWWMrTC9WMlh4YWZJT1VZUT09',
             'id': '894 8033 9991', 'pass': '838968'},
         'Математический анализ': {'link': 'https://zoom.us/j/98478027286?pwd=ZDRnZ1lvOWt0TDhGMGY',
@@ -58,9 +58,9 @@ webs_practice = {
                 'link': 'https://us04web.zoom.us/j/76741847077?pwd=MjNMQkllU1Q0eUR6Mm9WQ3NxVGJ6Zz09',
                 'id': '767 4184 7077', 'pass': 'MMce1u'},
             'Основы программирования': {
-                '09:10': {'link': '', 'id': '', 'pass': ''},
-                '14:40': {'link': '', 'id': '', 'pass': ''},
-                '16:20': {'link': '', 'id': '', 'pass': ''}}
+                '09:10': {'link': 'https://teams.microsoft.com/l/meetup-join/19:rWPbV6_vOw8UfOuxKfASaeFON_GjUhrmA3wzA9i22y81@thread.tacv2/1634651661980?context={"Tid%22:%2260b6ee4f-43c2-4c1f-b509-d6fad245297a","Oid%22:%228a735a4b-83eb-4320-997f-2d3e01fa7d95"}', 'id': '', 'pass': ''},
+                '14:40': {'link': 'https://teams.microsoft.com/l/meetup-join/19:rWPbV6_vOw8UfOuxKfASaeFON_GjUhrmA3wzA9i22y81@thread.tacv2/1634651770399?context={"Tid%22:%2260b6ee4f-43c2-4c1f-b509-d6fad245297a","Oid%22:%228a735a4b-83eb-4320-997f-2d3e01fa7d95"}', 'id': '', 'pass': ''},
+                '16:20': {'link': 'https://teams.microsoft.com/l/meetup-join/19:rWPbV6_vOw8UfOuxKfASaeFON_GjUhrmA3wzA9i22y81@thread.tacv2/1634651770399?context={"Tid%22:%2260b6ee4f-43c2-4c1f-b509-d6fad245297a","Oid%22:%228a735a4b-83eb-4320-997f-2d3e01fa7d95"}', 'id': '', 'pass': ''}}
         },
         '3821Б1ФИ2': {
             'Алгебра и геометрия': {'link': '', 'id': '', 'pass': ''}
