@@ -29,7 +29,9 @@ webs_practice = {
         '3821Б1ФИ1': {
             'Алгебра и геометрия': {'link': 'https://us04web.zoom.us/j/2685906294?pwd=WGFwZ0h4T2drZ3dhRkRKc00wZjNFZz09',
                                     'id': '268 590 6294', 'pass': 'gy2Ugd'},
-            'Дискретная математика': {'link': '', 'id': '', 'pass': ''}
+            'Дискретная математика': {
+                'link': 'https://us02web.zoom.us/j/84425798878?pwd=aEZ6UHFycEMrQjhtMlVQa2VHNWg4QT09',
+                'id': '844 2579 8878', 'pass': '368668'}
         },
         '3821Б1ФИ2': {
             'Основы программирования': {
