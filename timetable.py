@@ -64,7 +64,7 @@ def table_chat(table, date, group_name):
     for i in table:
         group = i['group'] if i['group'] else i['stream']
         if not group: group = i['stream'] if i['stream'] else i['subGroup']
-        a = '\n'+'-' * 59 + '\n'
+        a = '\n'+'-' * 58 + '\n'
         lesson = i['discipline']
         kindOfWork = i['kindOfWork']
         beginLesson = i['beginLesson']
