@@ -15,7 +15,7 @@ webs_lecture = {  # одинаково у всех (все лекции)
         'Физическая культура и спорт (элективная дисциплина)': {'link': '', 'id': '', 'pass': ''}
     },
     'Чт': {
-        'Введение в проектную деятельность': {  
+        'Введение в проектную деятельность': {
             'link': 'https://us02web.zoom.us/j/89480339991?pwd=c0NjcllNWWMrTC9WMlh4YWZJT1VZUT09',
             'id': '894 8033 9991', 'pass': '838968'},
         'Математический анализ': {'link': 'https://zoom.us/j/98478027286?pwd=ZDRnZ1lvOWt0TDhGMGY',
@@ -83,10 +83,10 @@ webs_practice = {
     },
     'Пт': {
         '3821Б1ФИ1': {
-            'Практикум по математическому анализу': {
+            '10:50': { #МатАн
                 'link': 'https://us04web.zoom.us/j/76741847077?pwd=MjNMQkllU1Q0eUR6Mm9WQ3NxVGJ6Zz09',
                 'id': '767 4184 7077', 'pass': 'MMce1u'},
-            'Алгебра и геометрия': {'link': 'https://us04web.zoom.us/j/2685906294?pwd=WGFwZ0h4T2drZ3dhRkRKc00wZjNFZz09',
+            '09:10': {'link': 'https://us04web.zoom.us/j/2685906294?pwd=WGFwZ0h4T2drZ3dhRkRKc00wZjNFZz09', #АиГ
                                     'id': '268 590 6294', 'pass': 'gy2Ugd'}
         },
         '3821Б1ФИ2': {
