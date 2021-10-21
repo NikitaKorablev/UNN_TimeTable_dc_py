@@ -59,22 +59,26 @@ def table_chat(table, date, group_name):
     dow_str = table[0]['dayOfWeekString']
 
     date = '.'.join(date.split('-')[::-1])
-    chat = 'Расписание на ' + date +' | '+ group_name +'\n'
+    chat = 'Расписание на ' + date + ' | ' + group_name + '\n'
     chat_array = [chat]
     for i in table:
         group = i['group'] if i['group'] else i['stream']
         if not group: group = i['stream'] if i['stream'] else i['subGroup']
-        a = '\n'+'-' * 58 + '\n'
+        a = '\n' + '-' * 58 + '\n'
         lesson = i['discipline']
         kindOfWork = i['kindOfWork']
         beginLesson = i['beginLesson']
 
+        if dow_str == 'Пт' and beginLesson == '09:10': lesson = 'Алгебра и геометрия'
+        if dow_str == 'Пт' and beginLesson == '10:50': lesson = 'Практикум по математическому анализу'
+
         chat = f"{a}{lesson} | {group}{a}{beginLesson} - {i['endLesson']}\n{i['lecturer']}\n"
 
-        chat += web(dow_str, lesson,beginLesson, kindOfWork, group_name)
+        chat += web(dow_str, lesson, beginLesson, kindOfWork, group_name)
 
         chat_array.append(chat)
     return chat_array
+
 
 def read_only():
     with open("log.txt", "r") as f:
@@ -126,16 +130,18 @@ def set_post_info(today, next_d, ask_day):
 def time_posting(std, time_n, ask_day):
     t_n = list(map(int, time_n.split('.')[0].split(':')))
     for i in range(2):
-        t_n[i] = t_n[i] * pow(60, 2-i)
-        std[i] = std[i] * pow(60, 2-i)
-    time_to_post = sum(std)-sum(t_n)
+        t_n[i] = t_n[i] * pow(60, 2 - i)
+        std[i] = std[i] * pow(60, 2 - i)
+    time_to_post = sum(std) - sum(t_n)
     if ask_day == 'today':
         return time_to_post
     else:
-        return 24*pow(60,2)+time_to_post
+        return 24 * pow(60, 2) + time_to_post
+
 
 HOUR = 19
 ACTIVATED = False
+
 
 def time_client(client, channels):
     @client.event
@@ -147,7 +153,8 @@ def time_client(client, channels):
         while True:
 
             date_now, time_now = str(datetime.datetime.now(datetime.timezone.utc) + datetime.timedelta(hours=3)).split()
-            date_next_d = str(datetime.datetime.now(datetime.timezone.utc) + datetime.timedelta(days=1, hours=3)).split()[0]
+            date_next_d = \
+            str(datetime.datetime.now(datetime.timezone.utc) + datetime.timedelta(days=1, hours=3)).split()[0]
 
             ask_day = 'next day' if int(time_now.split(':')[0]) >= HOUR else 'today'
             ask_date = date_next_d if int(time_now.split(':')[0]) >= HOUR else date_now
@@ -158,7 +165,7 @@ def time_client(client, channels):
                     channel = client.get_channel(j)
                     await channel.purge()
                     if table:
-                        for message in table_chat(table, ask_date,groups[i]):
+                        for message in table_chat(table, ask_date, groups[i]):
                             await channel.send(message)
                             # print(message)
                 set_post_info(date_now, date_next_d, ask_day)
