@@ -1,22 +1,29 @@
 import datetime
 import requests
 import time
+import asyncio
+import os
 from web import web
+from dotenv import load_dotenv
 
-token_vk = 'c1b9bdf4ff6b9ad047e305bc0cbf0986a922e7679fdc6bb9f60cb6cbb6c52a0d29635a9afb9b9f230d6e2'
-id_vk = 206866428
+load_dotenv()
+TOKEN_VK = os.getenv('VK_TOKEN')
+ID_VK = os.getenv('ID_VK')
+HOUR = int(os.getenv('HOUR'))
+
 groups = ['3821Б1ФИ1', '3821Б1ФИ2', '3821Б1ФИ3', '3821Б1ФИ4', '3821Б1ФИ5']
+
 HEADERS = {
     'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.105 YaBrowser/21.3.3.230 Yowser/2.5 Safari/537.36'}
 
 
-def send_message(message, id_v=id_vk, token=token_vk):
+def send_message(message, id_v=ID_VK, token=TOKEN_VK):
     resp = requests.post('https://api.vk.com/method/messages.send', params={
         'user_id': id_v,
         'random_id': int(time.time()) - 100000,
         'access_token': token,
         'v': 5.131,
-        'message': message + '\n' + read_only()
+        'message': message
     })
     return resp.status_code
 
@@ -39,20 +46,6 @@ def group_id(group):
     })
     id_g = response.json()[0]['id']
     return id_g
-
-
-def print_table(table, date):
-    print('Расписание на', date)
-    for i in table:
-        print(f"""------------------------------------------------------------------------------------------------------—
-{i['discipline']}
-------------------------------------------------------------------------------------------------------—
-{i['beginLesson']} - {i['endLesson']}
-{i['lecturer']} | {i['kindOfWork']}""")
-        if i['building'] == 'Виртуальное':
-            print('Ссылка:' + '\n')
-        else:
-            print(i['auditorium'], i['building'] + '\n')
 
 
 def table_chat(table, date, group_name):
@@ -80,9 +73,14 @@ def table_chat(table, date, group_name):
     return chat_array
 
 
-def read_only():
+async def read_only():
     with open("log.txt", "r") as f:
         return f.read()
+
+
+async def write_only(text):
+    with open("log.txt", "w") as f:
+        f.write(text)
 
 
 def get_post_info(today, next_d, ask_day):
@@ -139,40 +137,38 @@ def time_posting(std, time_n, ask_day):
         return 24 * pow(60, 2) + time_to_post
 
 
-HOUR = 19
 ACTIVATED = False
 
 
-def time_client(client, channels):
-    @client.event
-    async def on_ready():
-        global ACTIVATED
-        if not ACTIVATED:
-            send_message("Reboot")
-            ACTIVATED = True
-        while True:
+async def main_loop(bot, channels, mode=2):
+    global ACTIVATED
+    if not ACTIVATED:
+        if mode==2: send_message("Reboot")
+        print('Reboot')
+        ACTIVATED = True
+    while True:
 
-            date_now, time_now = str(datetime.datetime.now(datetime.timezone.utc) + datetime.timedelta(hours=3)).split()
-            date_next_d = \
+        date_now, time_now = str(datetime.datetime.now(datetime.timezone.utc) + datetime.timedelta(hours=3)).split()
+        date_next_d = \
             str(datetime.datetime.now(datetime.timezone.utc) + datetime.timedelta(days=1, hours=3)).split()[0]
 
-            ask_day = 'next day' if int(time_now.split(':')[0]) >= HOUR else 'today'
-            ask_date = date_next_d if int(time_now.split(':')[0]) >= HOUR else date_now
+        ask_day = 'next day' if int(time_now.split(':')[0]) >= HOUR else 'today'
+        ask_date = date_next_d if int(time_now.split(':')[0]) >= HOUR else date_now
 
-            if not get_post_info(date_now, date_next_d, ask_day):
-                for i, j in enumerate(channels):
-                    table = timetable(groups[i], ask_date)
-                    channel = client.get_channel(j)
-                    await channel.purge()
-                    if table:
-                        for message in table_chat(table, ask_date, groups[i]):
-                            await channel.send(message)
-                            # print(message)
-                set_post_info(date_now, date_next_d, ask_day)
-                print(f'Расписание на {ask_day} отправлено')
-                send_message(f'Расписание на {ask_day} отправлено')
+        if not get_post_info(date_now, date_next_d, ask_day):
+            for i, j in enumerate(channels):
+                table = timetable(groups[i], ask_date)
+                channel = bot.get_channel(j)
+                if mode: await channel.purge()
+                if table:
+                    for message in table_chat(table, ask_date, groups[i]):
+                        if mode: await channel.send(message)
+                        print(message)
+            if mode == 2: set_post_info(date_now, date_next_d, ask_day)
+            print(f'Расписание на {ask_day} отправлено')
+            if mode==2: send_message(f'Расписание на {ask_day} отправлено')
 
-            tp = time_posting([HOUR, 0, 0], time_now, ask_day)
-            print(f'I sleep {tp} sec')
-            send_message(f'I sleep {tp} sec')
-            time.sleep(tp)
+        tp = time_posting([HOUR, 0, 0], time_now, ask_day)
+        print(f'I sleep {tp} sec')
+        if mode==2: send_message(f'I sleep {tp} sec')
+        await asyncio.sleep(tp)
