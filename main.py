@@ -47,9 +47,9 @@ async def mode_set(ctx, arg):
     await ctx.send(f'Switch mode to {MODE}')
 
 
-@bot.command(name='mode_print', help=f'0 - Расп-,Чист-,Vk-,Log-'
-                                     f'1 - Расп+,Чист+,Vk-,Log-'
-                                     f'2 - Расп+,Чист+,Vk+,Log+')
+@bot.command(name='mode_print', help=f'0 - Raspisanie-,Clean-,Vk-,Log-\n'
+                                     f'1 - Raspisanie+,Clean+,Vk-,Log-\n'
+                                     f'2 - Raspisanie+,Clean+,Vk+,Log+')
 @commands.has_role('Administrator')
 async def mode_print(ctx):
     global MODE
