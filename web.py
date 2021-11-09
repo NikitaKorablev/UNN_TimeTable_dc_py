@@ -61,13 +61,13 @@ webs_practice = {
                 'id': '767 4184 7077', 'pass': 'MMce1u'},
             'Основы программирования': {
                 '09:10': {
-                    'link': 'https://teams.microsoft.com/l/meetup-join/19:rWPbV6_vOw8UfOuxKfASaeFON_GjUhrmA3wzA9i22y81@thread.tacv2/1634651661980?context={"Tid%22:%2260b6ee4f-43c2-4c1f-b509-d6fad245297a","Oid%22:%228a735a4b-83eb-4320-997f-2d3e01fa7d95"}',
+                    'link': 'https://teams.microsoft.com/l/meetup-join/19:rWPbV6_vOw8UfOuxKfASaeFON_GjUhrmA3wzA9i22y81@thread.tacv2/1635251201883?context={"Tid%22:%2260b6ee4f-43c2-4c1f-b509-d6fad245297a","Oid%22:%228a735a4b-83eb-4320-997f-2d3e01fa7d95"}',
                     'id': '', 'pass': ''},
                 '14:40': {
-                    'link': 'https://teams.microsoft.com/l/meetup-join/19:rWPbV6_vOw8UfOuxKfASaeFON_GjUhrmA3wzA9i22y81@thread.tacv2/1634651770399?context={"Tid%22:%2260b6ee4f-43c2-4c1f-b509-d6fad245297a","Oid%22:%228a735a4b-83eb-4320-997f-2d3e01fa7d95"}',
+                    'link': 'https://teams.microsoft.com/l/meetup-join/19:rWPbV6_vOw8UfOuxKfASaeFON_GjUhrmA3wzA9i22y81@thread.tacv2/1635251280135?context={"Tid%22:%2260b6ee4f-43c2-4c1f-b509-d6fad245297a","Oid%22:%228a735a4b-83eb-4320-997f-2d3e01fa7d95"}',
                     'id': '', 'pass': ''},
                 '16:20': {
-                    'link': 'https://teams.microsoft.com/l/meetup-join/19:rWPbV6_vOw8UfOuxKfASaeFON_GjUhrmA3wzA9i22y81@thread.tacv2/1634651770399?context={"Tid%22:%2260b6ee4f-43c2-4c1f-b509-d6fad245297a","Oid%22:%228a735a4b-83eb-4320-997f-2d3e01fa7d95"}',
+                    'link': 'https://teams.microsoft.com/l/meetup-join/19:rWPbV6_vOw8UfOuxKfASaeFON_GjUhrmA3wzA9i22y81@thread.tacv2/1635251280135?context={"Tid%22:%2260b6ee4f-43c2-4c1f-b509-d6fad245297a","Oid%22:%228a735a4b-83eb-4320-997f-2d3e01fa7d95"}',
                     'id': '', 'pass': ''}}
         },
         '3821Б1ФИ2': {
