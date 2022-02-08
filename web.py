@@ -13,7 +13,7 @@ webs_lecture = {  # одинаково у всех (все лекции)
                                 'id': '428 233 6398', 'pass': '123456'}
     },
     'Ср': {
-        'Эффективные алгоритмы и структуры данных-1': {'link': '', 'id': '', 'pass': ''},
+        'Эффективные алгоритмы и структуры данных-2': {'link': '', 'id': '', 'pass': ''},
         'Физическая культура и спорт (элективная дисциплина)': {'link': '', 'id': '', 'pass': ''}
     },
     'Чт': {
@@ -24,6 +24,15 @@ webs_lecture = {  # одинаково у всех (все лекции)
                                   'id': '984 7802 7286', 'pass': '504739'},
         'Дискретная математика': {'link': 'https://zoom.us/j/96239360433?pwd=amZBaTdBazYrYW03cDJzMHpOMHk0QT09',
                                   'id': '962 3936 0433', 'pass': '123456'}
+    },
+    'Вт': {
+        'Математический анализ': {'link': 'https://zoom.us/j/92825618536?pwd=NkUrbWxiTmlNQkRKVjQ',
+                                  'id': '928 2561 8536', 'pass': '559912'},
+        'Дискретная математика': {'link': 'https://zoom.us/j/96239360433?pwd=amZBaTdBazYrYW03cDJzMHpOMHk0QT09',
+                                  'id': '962 3936 0433', 'pass': '123456'},
+        'Теория информации': {
+            'link': '',
+            'id': '', 'pass': ''},                 
     }
 }
 webs_practice = {
@@ -136,7 +145,7 @@ def f_chat(table, *params):
 
 
 def web(day, lesson, beginLesson, kindOfWork, group):
-    if kindOfWork == 'Лекция' or 'проект' in lesson or 'Физ' in lesson:
+    if kindOfWork == 'Лекция' or 'алгоритмы' in lesson or 'Физ' in lesson:
         return f_chat(webs_lecture, day, lesson, beginLesson, kindOfWork)  # всё, что есть, но в нужном порядке
     else:
         return f_chat(webs_practice, day, group, lesson, beginLesson, kindOfWork)
