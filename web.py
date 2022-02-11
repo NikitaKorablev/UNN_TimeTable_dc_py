@@ -1,38 +1,58 @@
-webs_lecture = {  # одинаково у всех (все лекции)
-    'Пн': {
-        'Математический анализ': {'link': 'https://zoom.us/j/92825618536?pwd=NkUrbWxiTmlNQkRKVjQ',
-                                  'id': '928 2561 8536', 'pass': '559912'},
-        'Основы программирования': {
-            '09:10': {
-                'link': 'https://teams.microsoft.com/l/meetup-join/19%3ameeting_Yzc1Njc3OWQtODdmZi00NTU5LWE3ZmYtMTFmYTQwNWE1ODJj%40thread.v2/0?context=%7b%22Tid%22%3a%2260b6ee4f-43c2-4c1f-b509-d6fad245297a%22%2c%22Oid%22%3a%225296e582-edba-4b94-ba1f-ca426c653e15%22%7d',
-                'id': '', 'pass': ''},
-            '14:40': {
-                'link': 'https://teams.microsoft.com/l/meetup-join/19%3ameeting_YzM3Yzc2YzEtYTE0Yy00NzM4LThkMjQtMWNlMDRiMmNjMjUx%40thread.v2/0?context=%7b%22Tid%22%3a%2260b6ee4f-43c2-4c1f-b509-d6fad245297a%22%2c%22Oid%22%3a%225296e582-edba-4b94-ba1f-ca426c653e15%22%7d',
-                'id': '', 'pass': ''}},
-        'Алгебра и геометрия': {'link': 'https://zoom.us/j/4282336398?pwd=RmpJM...Z3bHlmQT09',
-                                'id': '428 233 6398', 'pass': '123456'}
-    },
+webs_lecture = { 
+    # 'Пн': {
+    #     'Математический анализ': {'link': 'https://zoom.us/j/92825618536?pwd=NkUrbWxiTmlNQkRKVjQ',
+    #                               'id': '928 2561 8536', 'pass': '559912'},
+    #     'Основы программирования': {
+    #         '09:10': {
+    #             'link': 'https://teams.microsoft.com/l/meetup-join/19%3ameeting_Yzc1Njc3OWQtODdmZi00NTU5LWE3ZmYtMTFmYTQwNWE1ODJj%40thread.v2/0?context=%7b%22Tid%22%3a%2260b6ee4f-43c2-4c1f-b509-d6fad245297a%22%2c%22Oid%22%3a%225296e582-edba-4b94-ba1f-ca426c653e15%22%7d',
+    #             'id': '', 'pass': ''},
+    #         '14:40': {
+    #             'link': 'https://teams.microsoft.com/l/meetup-join/19%3ameeting_YzM3Yzc2YzEtYTE0Yy00NzM4LThkMjQtMWNlMDRiMmNjMjUx%40thread.v2/0?context=%7b%22Tid%22%3a%2260b6ee4f-43c2-4c1f-b509-d6fad245297a%22%2c%22Oid%22%3a%225296e582-edba-4b94-ba1f-ca426c653e15%22%7d',
+    #             'id': '', 'pass': ''}},
+    #     'Алгебра и геометрия': {'link': 'https://zoom.us/j/4282336398?pwd=RmpJM...Z3bHlmQT09',
+    #                             'id': '428 233 6398', 'pass': '123456'}
+    # },
     'Ср': {
         'Эффективные алгоритмы и структуры данных-2': {'link': '', 'id': '', 'pass': ''},
         'Физическая культура и спорт (элективная дисциплина)': {'link': '', 'id': '', 'pass': ''}
     },
-    'Чт': {
-        'Введение в проектную деятельность': {
-            'link': 'https://us02web.zoom.us/j/89480339991?pwd=c0NjcllNWWMrTC9WMlh4YWZJT1VZUT09',
-            'id': '894 8033 9991', 'pass': '838968'},
-        'Математический анализ': {'link': 'https://zoom.us/j/98478027286?pwd=ZDRnZ1lvOWt0TDhGMGY',
-                                  'id': '984 7802 7286', 'pass': '504739'},
-        'Дискретная математика': {'link': 'https://zoom.us/j/96239360433?pwd=amZBaTdBazYrYW03cDJzMHpOMHk0QT09',
-                                  'id': '962 3936 0433', 'pass': '123456'}
-    },
+    # 'Чт': {
+    #     'Введение в проектную деятельность': {
+    #         'link': 'https://us02web.zoom.us/j/89480339991?pwd=c0NjcllNWWMrTC9WMlh4YWZJT1VZUT09',
+    #         'id': '894 8033 9991', 'pass': '838968'},
+    #     'Математический анализ': {'link': 'https://zoom.us/j/98478027286?pwd=ZDRnZ1lvOWt0TDhGMGY',
+    #                               'id': '984 7802 7286', 'pass': '504739'},
+    #     'Дискретная математика': {'link': 'https://zoom.us/j/96239360433?pwd=amZBaTdBazYrYW03cDJzMHpOMHk0QT09',
+    #                               'id': '962 3936 0433', 'pass': '123456'}
+    # },
+
     'Вт': {
         'Математический анализ': {'link': 'https://zoom.us/j/92825618536?pwd=NkUrbWxiTmlNQkRKVjQ',
                                   'id': '928 2561 8536', 'pass': '559912'},
         'Дискретная математика': {'link': 'https://zoom.us/j/96239360433?pwd=amZBaTdBazYrYW03cDJzMHpOMHk0QT09',
                                   'id': '962 3936 0433', 'pass': '123456'},
-        'Теория информации': {
-            'link': '',
-            'id': '', 'pass': ''},                 
+        'Теория информации': {'link': '', 'id': '', 'pass': ''}                 
+    },
+
+    'Чт': {
+        'Основы программирования': {
+            '09:10': {
+                'link': 'https://us05web.zoom.us/j/87888947438?pwd=VjNDWW9tTmF4QTlqbUtwZDMzVG5HUT09',
+                'id': '878 8894 7438', 'pass': 's7bhq0'},
+            '10:50': {
+                'link': 'https://us04web.zoom.us/j/2409058334?pwd=U3hiNVV4TWVqTXA4TFAwNFpDSnp2Zz09',
+                'id': '240 905 8334', 'pass': '8x3uJN'}
+        }
+    },
+
+    'Пт': {
+        'Основы программирования':{
+            'link': 'teams.microsoft.com/l/meetup-join/19:meeting_ZTMwNjdmYjUtOTE5OS00ZDlkLWI4MTQtNDA1NmY2ZTdlZDc1@thread.v2/0?context={"Tid%22:%2260b6ee4f-43c2-4c1f-b509-d6fad245297a","Oid%22:%22e97f12bb-f589-4e7f-b5e2-92f59812fe83"}',
+            'id': '', 'pass': ''},
+        'Алгебра и геометрия': {'link': 'https://zoom.us/j/6592432792?pwd=ZzIrWTM3NW11R1lIUzJ1YjRuUVVhdz09',
+                                'id': '', 'pass': ''},
+        'История (история России, всеобщая история)': {'link': 'https://zoom.us/j/9533347559?pwd=dVk2dUY4ejU0NVphQ1J5Mm1KOTIwUT09', 
+                                'id': '953 334 7559', 'pass': '379248'}
     }
 }
 webs_practice = {
@@ -148,4 +168,5 @@ def web(day, lesson, beginLesson, kindOfWork, group):
     if kindOfWork == 'Лекция' or 'алгоритмы' in lesson or 'Физ' in lesson:
         return f_chat(webs_lecture, day, lesson, beginLesson, kindOfWork)  # всё, что есть, но в нужном порядке
     else:
-        return f_chat(webs_practice, day, group, lesson, beginLesson, kindOfWork)
+        # return f_chat(webs_practice, day, group, lesson, beginLesson, kindOfWork)
+        return ''

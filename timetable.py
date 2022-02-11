@@ -62,8 +62,8 @@ def table_chat(table, date, group_name):
         kindOfWork = i['kindOfWork']
         beginLesson = i['beginLesson']
 
-        if dow_str == 'Пт' and beginLesson == '09:10': lesson = 'Алгебра и геометрия'
-        if dow_str == 'Пт' and beginLesson == '10:50': lesson = 'Практикум по математическому анализу'
+        # if dow_str == 'Пт' and beginLesson == '09:10': lesson = 'Алгебра и геометрия'
+        # if dow_str == 'Пт' and beginLesson == '10:50': lesson = 'Практикум по математическому анализу'
 
         chat = f"{a}{lesson} | {group}{a}{beginLesson} - {i['endLesson']}\n{i['lecturer']}\n"
 
