@@ -27,15 +27,15 @@ webs_lecture = {
     # },
 
     'Вт': {
-        'Математический анализ': {'link': 'https://zoom.us/j/92825618536?pwd=NkUrbWxiTmlNQkRKVjQ',
-                                  'id': '928 2561 8536', 'pass': '559912'},
-        'Дискретная математика': {'link': 'https://zoom.us/j/96239360433?pwd=amZBaTdBazYrYW03cDJzMHpOMHk0QT09',
-                                  'id': '962 3936 0433', 'pass': '123456'},
+        'Математический анализ': {'link': 'https://zoom.us/j/99826311193?pwd=Q3p5SVZscTZZeHJaOFdMUk0xblBqQT09',
+                                  'id': '998 2631 1193', 'pass': '334019'},
+        'Дискретная математика': {'link': 'https://zoom.us/j/93532811483?pwd=WFZySm1BRjlHWExEeWxPR200SGpsZz09',
+                                  'id': '935 3281 1483', 'pass': '123456'},
         'Теория информации': {'link': '', 'id': '', 'pass': ''}                 
     },
 
     'Чт': {
-        'Основы программирования': {
+        'Иностранный язык': {
             '09:10': {
                 'link': 'https://us05web.zoom.us/j/87888947438?pwd=VjNDWW9tTmF4QTlqbUtwZDMzVG5HUT09',
                 'id': '878 8894 7438', 'pass': 's7bhq0'},
@@ -47,7 +47,7 @@ webs_lecture = {
 
     'Пт': {
         'Основы программирования':{
-            'link': 'teams.microsoft.com/l/meetup-join/19:meeting_ZTMwNjdmYjUtOTE5OS00ZDlkLWI4MTQtNDA1NmY2ZTdlZDc1@thread.v2/0?context={"Tid%22:%2260b6ee4f-43c2-4c1f-b509-d6fad245297a","Oid%22:%22e97f12bb-f589-4e7f-b5e2-92f59812fe83"}',
+            'link': 'teams.microsoft.com/l/meetup-join/19:meeting_Yzk1Y2FmODQtODFiZi00ZmQyLTg4MTItZGE1NGY2NWVhZmVl@thread.v2/0?context={"Tid%22:%2260b6ee4f-43c2-4c1f-b509-d6fad245297a","Oid%22:%22e97f12bb-f589-4e7f-b5e2-92f59812fe83"}',
             'id': '', 'pass': ''},
         'Алгебра и геометрия': {'link': 'https://zoom.us/j/6592432792?pwd=ZzIrWTM3NW11R1lIUzJ1YjRuUVVhdz09',
                                 'id': '', 'pass': ''},
