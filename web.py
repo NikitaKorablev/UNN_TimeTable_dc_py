@@ -47,7 +47,7 @@ webs_lecture = {
 
     'Пт': {
         'Основы программирования':{
-            'link': 'teams.microsoft.com/l/meetup-join/19:meeting_Yzk1Y2FmODQtODFiZi00ZmQyLTg4MTItZGE1NGY2NWVhZmVl@thread.v2/0?context={"Tid%22:%2260b6ee4f-43c2-4c1f-b509-d6fad245297a","Oid%22:%22e97f12bb-f589-4e7f-b5e2-92f59812fe83"}',
+            'link': 'https://teams.microsoft.com/l/meetup-join/19:meeting_Yzk1Y2FmODQtODFiZi00ZmQyLTg4MTItZGE1NGY2NWVhZmVl@thread.v2/0?context={"Tid%22:%2260b6ee4f-43c2-4c1f-b509-d6fad245297a","Oid%22:%22e97f12bb-f589-4e7f-b5e2-92f59812fe83"}',
             'id': '', 'pass': ''},
         'Алгебра и геометрия': {'link': 'https://zoom.us/j/6592432792?pwd=ZzIrWTM3NW11R1lIUzJ1YjRuUVVhdz09',
                                 'id': '', 'pass': ''},
