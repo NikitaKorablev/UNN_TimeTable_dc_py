@@ -1,3 +1,11 @@
+from time import time
+from pytube import Playlist
+
+def randRR():
+    link = Playlist('https://www.youtube.com/playlist?list=PLxb0XwjhqM_RLETkiOkUZrEE8K-fP3V-p')
+    n = int(time())%(link.length)
+    return link.video_urls[n]
+
 webs_lecture = { 
     # 'Пн': {
     #     'Математический анализ': {'link': 'https://zoom.us/j/92825618536?pwd=NkUrbWxiTmlNQkRKVjQ',
@@ -46,9 +54,7 @@ webs_lecture = {
     },
 
     'Пт': {
-        'Основы программирования':{
-            'link': 'https://teams.microsoft.com/l/meetup-join/19:meeting_Yzk1Y2FmODQtODFiZi00ZmQyLTg4MTItZGE1NGY2NWVhZmVl@thread.v2/0?context={"Tid%22:%2260b6ee4f-43c2-4c1f-b509-d6fad245297a","Oid%22:%22e97f12bb-f589-4e7f-b5e2-92f59812fe83"}',
-            'id': '', 'pass': ''},
+        'Основы программирования':{'link': randRR(),'id': '', 'pass': ''},
         'Алгебра и геометрия': {'link': 'https://zoom.us/j/6592432792?pwd=ZzIrWTM3NW11R1lIUzJ1YjRuUVVhdz09',
                                 'id': '', 'pass': ''},
         'История (история России, всеобщая история)': {'link': 'https://zoom.us/j/9533347559?pwd=dVk2dUY4ejU0NVphQ1J5Mm1KOTIwUT09', 
@@ -161,7 +167,7 @@ def f_chat(table, *params):
                'Идентификатор конференции: {id}\n' \
                'Код доступа: {pass}'.format(**chat)
     except Exception:
-        return 'Технические шоколадки'
+        return randRR()
 
 
 def web(day, lesson, beginLesson, kindOfWork, group):
