@@ -42,19 +42,16 @@ webs_lecture = {
         'Теория информации': {'link': '', 'id': '', 'pass': ''}                 
     },
 
-    'Чт': {
-        'Иностранный язык': {
-            '09:10': {
-                'link': 'https://us05web.zoom.us/j/87888947438?pwd=VjNDWW9tTmF4QTlqbUtwZDMzVG5HUT09',
-                'id': '878 8894 7438', 'pass': 's7bhq0'},
-            '10:50': {
-                'link': 'https://us04web.zoom.us/j/2409058334?pwd=U3hiNVV4TWVqTXA4TFAwNFpDSnp2Zz09',
-                'id': '240 905 8334', 'pass': '8x3uJN'}
-        }
-    },
-
     'Пт': {
-        'Основы программирования':{'link': randRR(),'id': '', 'pass': ''},
+        'Основы программирования': {
+            '07:30': {
+                'link': 'https://teams.microsoft.com/l/meetup-join/19:meeting_Yzk1Y2Fm',
+                'id': '', 'pass': ''},
+            '10:50': {
+                'link': randRR(),
+                'id': '', 'pass': ''}
+        },
+        # 'Основы программирования':{'link': randRR(),'id': '', 'pass': ''},
         'Алгебра и геометрия': {'link': 'https://zoom.us/j/6592432792?pwd=ZzIrWTM3NW11R1lIUzJ1YjRuUVVhdz09',
                                 'id': '', 'pass': ''},
         'История (история России, всеобщая история)': {'link': 'https://zoom.us/j/9533347559?pwd=dVk2dUY4ejU0NVphQ1J5Mm1KOTIwUT09', 

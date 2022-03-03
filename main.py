@@ -7,7 +7,7 @@ from timetable import read_only, main_loop, write_only
 load_dotenv()
 TOKEN_DS = os.getenv('DISCORD_TOKEN')
 
-channels = [int(os.getenv(f'CHN{i}')) for i in range(1,6)]
+channels = [int(os.getenv(f'CHN{i}')) for i in range(1, 6)]
 
 bot = commands.Bot(command_prefix='!')
 MODE = 2
