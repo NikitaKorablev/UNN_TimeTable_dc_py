@@ -62,9 +62,6 @@ def table_chat(table, date, group_name):
         kindOfWork = i['kindOfWork']
         beginLesson = i['beginLesson']
 
-        # if dow_str == 'Пт' and beginLesson == '09:10': lesson = 'Алгебра и геометрия'
-        # if dow_str == 'Пт' and beginLesson == '10:50': lesson = 'Практикум по математическому анализу'
-
         chat = f"{a}{lesson} | {group}{a}{beginLesson} - {i['endLesson']}\n{i['lecturer']}\n"
 
         chat += web(dow_str, lesson, beginLesson, kindOfWork, group_name)
@@ -106,8 +103,7 @@ def get_post_info(today, next_d, ask_day):
 def set_post_info(today, next_d, ask_day):
     with open("log.txt", "r") as f:
         post1, post2 = f.read().split('\n')
-        p1_b, p1_d = post1.split()
-        p2_b, p2_d = post2.split()
+        _, p2_d = post2.split()
     with open("log.txt", "w") as f:
         if ask_day == 'today':
             if p2_d == today:
