@@ -18,6 +18,10 @@ webs_lecture = {
     'Пт': {
         'Основы программирования': {
             '07:30': {'link': 'https://teams.microsoft.com/l/meetup-join/19:meeting_M2I3Njg0MGItZTM2OS00ZDZlLWFjNWEtNTc1YzEzMjc2M2Nl@thread.v2/0?context={"Tid%22:%2260b6ee4f-43c2-4c1f-b509-d6fad245297a","Oid%22:%22e97f12bb-f589-4e7f-b5e2-92f59812fe83"}',
+             'id': '', 'pass': ''},
+            '10:50': {'link': 'https://teams.microsoft.com/l/meetup-join/19:meeting_NTlkOTc3MzEtMTUyMi00MWQ5LTg4MzgtZTJhNDAxODlkZTA2@thread.v2/0?context={"Tid%22:%2260b6ee4f-43c2-4c1f-b509-d6fad245297a","Oid%22:%22e97f12bb-f589-4e7f-b5e2-92f59812fe83"}',
+             'id': '', 'pass': ''},
+            '14:40': {'link': 'https://teams.microsoft.com/l/meetup-join/19:meeting_MTkzYTY3ZTMtNGUyNS00ODQ0LTgzODgtYmZjNDlmYzI0MGQw@thread.v2/0?context={"Tid%22:%2260b6ee4f-43c2-4c1f-b509-d6fad245297a","Oid%22:%22e97f12bb-f589-4e7f-b5e2-92f59812fe83"}',
              'id': '', 'pass': ''}
             # '10:50': {'link': randRR(), 'id': '', 'pass': ''}
         },
