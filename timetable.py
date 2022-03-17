@@ -64,7 +64,7 @@ def table_chat(table, date, group_name):
 
         chat = f"{a}{lesson} | {group}{a}{beginLesson} - {i['endLesson']}\n{i['lecturer']}\n"
 
-        chat += web(dow_str, lesson, beginLesson, kindOfWork, group_name)
+        chat += if web(dow_str, lesson, beginLesson, kindOfWork, group_name) else i['auditorium']
 
         chat_array.append(chat)
     return chat_array
