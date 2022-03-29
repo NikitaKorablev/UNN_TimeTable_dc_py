@@ -137,8 +137,10 @@ def f_chat(table, *params):
                'Идентификатор конференции: {id}\n' \
                'Код доступа: {pass}'.format(**chat)
     except Exception:
-        return 'Ссылка на конференцию: ' + randRR()
-
+        try:
+            return 'Ссылка на конференцию: ' + randRR()
+        except Exception:
+            return 'Ссылка на конференцию: ' + 'https://vk.com/a_xyenno'
 
 def web(day, lesson, beginLesson, kindOfWork, group):
     if kindOfWork == 'Лекция':
