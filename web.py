@@ -7,28 +7,13 @@ def randRR():
     return link.video_urls[n]
 
 webs_lecture = { 
-    'Вт': {
-        'Математический анализ': {'link': 'https://zoom.us/j/99826311193?pwd=Q3p5SVZscTZZeHJaOFdMUk0xblBqQT09',
-                                  'id': '998 2631 1193', 'pass': '334019'},
-        'Дискретная математика': {'link': 'https://zoom.us/j/93532811483?pwd=WFZySm1BRjlHWExEeWxPR200SGpsZz09',
-                                  'id': '935 3281 1483', 'pass': '123456'}
-        # 'Теория информации': {'link': '', 'id': '', 'pass': ''}                 
-    },
-
-    'Пт': {
-        'Основы программирования': {
-            '07:30': {'link': 'https://teams.microsoft.com/l/meetup-join/19:meeting_M2I3Njg0MGItZTM2OS00ZDZlLWFjNWEtNTc1YzEzMjc2M2Nl@thread.v2/0?context={"Tid%22:%2260b6ee4f-43c2-4c1f-b509-d6fad245297a","Oid%22:%22e97f12bb-f589-4e7f-b5e2-92f59812fe83"}',
-             'id': '', 'pass': ''},
-            '10:50': {'link': 'https://teams.microsoft.com/l/meetup-join/19:meeting_NTlkOTc3MzEtMTUyMi00MWQ5LTg4MzgtZTJhNDAxODlkZTA2@thread.v2/0?context={"Tid%22:%2260b6ee4f-43c2-4c1f-b509-d6fad245297a","Oid%22:%22e97f12bb-f589-4e7f-b5e2-92f59812fe83"}',
-             'id': '', 'pass': ''},
-            '14:40': {'link': 'https://teams.microsoft.com/l/meetup-join/19:meeting_MTkzYTY3ZTMtNGUyNS00ODQ0LTgzODgtYmZjNDlmYzI0MGQw@thread.v2/0?context={"Tid%22:%2260b6ee4f-43c2-4c1f-b509-d6fad245297a","Oid%22:%22e97f12bb-f589-4e7f-b5e2-92f59812fe83"}',
-             'id': '', 'pass': ''}
-            # '10:50': {'link': randRR(), 'id': '', 'pass': ''}
-        },
-        'Алгебра и геометрия': {'link': 'https://zoom.us/j/6592432792?pwd=ZzIrWTM3NW11R1lIUzJ1YjRuUVVhdz09',
-                                'id': '', 'pass': ''},
-        'История (история России, всеобщая история)': {'link': 'https://zoom.us/j/9533347559?pwd=dVk2dUY4ejU0NVphQ1J5Mm1KOTIwUT09', 
-                                'id': '953 334 7559', 'pass': '379248'}
+    'ПН': {
+        'Линейное программирование': 'https://events.webinar.ru/unn/12249589',
+        'Математический анализ': 'https://events.webinar.ru/unn/2104097528',
+        'Архитектура вычислительных систем': 'https://teams.microsoft.com/l/meetup-join/19%3ameeting_YTg1ZjAzOTAtYjViOC00NDgyLWExMjktMjAzMWQ0M2VkNDI4%40thread.v2/0?context=%7b%22Tid%22%3a%2260b6ee4f-43c2-4c1f-b509-d6fad245297a%22%2c%22Oid%22%3a%22d7978a7b-8cfe-4c39-86ac-7e14a9d1bbc2%22%7d',
+        'Дифференциальные уравнения': 'https://events.webinar.ru/unn/1959671208/stream-new/377301875',
+        'Алгоритмы и структуры данных': 'https://teams.microsoft.com/l/meetup-join/19%3ameeting_MmIyMTdiNDktMGRhNy00N2Q3LTg5ZGMtNjA3Y2E3NzYxMWUz%40thread.v2/0?context=%7b%22Tid%22%3a%2260b6ee4f-43c2-4c1f-b509-d6fad245297a%22%2c%22Oid%22%3a%225296e582-edba-4b94-ba1f-ca426c653e15%22%7d',
+        'Безопасность жизнедеятельности': 'https://teams.microsoft.com/l/meetup-join/19%3ameeting_NjU2NDg4ODktYWI2Ni00YTlmLTk2YzktOWM4ZjM0NDFkYjIy%40thread.v2/0?context=%7b%22Tid%22%3a%2252f42523-f018-46d5-8d79-dd35c5f57d73%22%2c%22Oid%22%3a%226e9abfba-8dc6-44e7-851d-830d575ee39e%22%7d'
     }
 }
 webs_practice = {
@@ -132,19 +117,26 @@ def f_chat(table, *params):
     for i in params:
         if i in chat.keys():
             chat = chat[i]
-    try:
-        return 'Ссылка на конференцию: {link}\n' \
-               'Идентификатор конференции: {id}\n' \
-               'Код доступа: {pass}'.format(**chat)
-    except Exception:
-        try:
-            return 'Ссылка на конференцию: ' + randRR()
-        except Exception:
-            return 'Ссылка на конференцию: ' + 'https://vk.com/a_xyenno'
+    return chat
+
+
+def outChat(chat):
+    # try:
+    #     return 'Ссылка на конференцию: {link}\n' \
+    #            'Идентификатор конференции: {id}\n' \
+    #            'Код доступа: {pass}'.format(**chat)
+    # except Exception:
+    #     try:
+    #         return 'Ссылка на конференцию: ' + randRR()
+    #     except Exception:
+    #         return 'Ссылка на конференцию: ' + 'https://vk.com/a_xyenno'
+    return 'Ссылка на конференцию: ' + chat if 'https' in chat else randRR()
+
 
 def web(day, lesson, beginLesson, kindOfWork, group):
     if kindOfWork == 'Лекция':
-        return f_chat(webs_lecture, day, lesson, beginLesson, kindOfWork)
+        table = webs_lecture
+        chat = f_chat(webs_lecture, day, lesson, beginLesson, kindOfWork)
+        return outChat(chat)
     else:
-        # return f_chat(webs_practice, day, group, lesson, beginLesson, kindOfWork)
         return ''
